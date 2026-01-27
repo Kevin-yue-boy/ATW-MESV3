@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>ATW.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="appsettings.json" />
+    <None Remove="Common\Images\logo.jpg" />
+    <None Remove="Common\Images\最大化.png" />
+    <None Remove="Common\Images\最小化.png" />
+    <None Remove="Common\Images\退出.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ATW.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ATW.CommonBase\ATW.CommonBase.csproj" />
+    <ProjectReference Include="..\ATW.MES.BLL\ATW.MES.BLL.csproj" />
+    <ProjectReference Include="..\ATW.MES.Model\ATW.MES.Model.csproj" />
+    <ProjectReference Include="..\ATW.MES.SIS\ATW.MES.SIS.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HandyControl" Version="3.5.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.0" />
+    <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Common\Base\" />
+    <Folder Include="ViewModels\StateBoard\" />
+    <Folder Include="Views\StateBoard\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Common\Images\logo.jpg" />
+    <Resource Include="Common\Images\最大化.png" />
+    <Resource Include="Common\Images\最小化.png" />
+    <Resource Include="Common\Images\退出.png" />
+  </ItemGroup>
+
+</Project>

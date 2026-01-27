@@ -1,0 +1,294 @@
+<UserControl
+    x:Class="ATW.MES.Client.Views.SystemViews.BaseData.BaseProductTypeView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:UCUI="clr-namespace:ATW.MES.Client.Common.UI.UCUI"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="980"
+    d:DesignWidth="1630"
+    Background="White"
+    mc:Ignorable="d">
+    <Grid x:Name="gd_Main">
+
+        <!--#region 界面分割-->
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="8*" />
+            <RowDefinition Height="0.6*" />
+        </Grid.RowDefinitions>
+
+        <!--#endregion-->
+
+        <!--#region 边框-->
+
+        <Border
+            BorderBrush="#D8DDE1"
+            BorderThickness="1.5"
+            CornerRadius="5" />
+        <Border
+            Grid.Row="1"
+            Margin="0,5,0,0"
+            BorderBrush="#D8DDE1"
+            BorderThickness="1.5"
+            CornerRadius="5" />
+
+        <!--#endregion-->
+
+        <!--#region 操作项-->
+
+        <Grid>
+
+            <!--#region 查询-->
+
+            <TextBlock
+                Margin="33,17,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                FontSize="12"
+                Text="产品类型名称："
+                TextWrapping="Wrap" />
+
+            <TextBox
+                Width="200"
+                Margin="120,12,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                FontSize="11"
+                Text="{Binding Search}"
+                TextWrapping="Wrap" />
+            <Button
+                Width="80"
+                Margin="340,12,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                hc:IconElement.Geometry="{StaticResource SearchGeometry}"
+                Command="{Binding GetCommand}"
+                Content="查询"
+                FontSize="13"
+                Style="{StaticResource ButtonPrimary}" />
+
+            <!--#endregion-->
+
+            <!--#region 数据修改栏-->
+
+            <TextBlock
+                Margin="33,59,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                FontSize="12"
+                Text="产品类型名称："
+                TextWrapping="Wrap" />
+            <TextBox
+                Width="120"
+                Margin="120,54,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                hc:InfoElement.Placeholder="*必填项"
+                FontSize="11"
+                Style="{StaticResource TextBoxExtend}"
+                Text="{Binding Model.ProductTypeName}"
+                TextWrapping="Wrap" />
+
+            <TextBlock
+                Margin="260,59,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                FontSize="12"
+                Text="产品类型编码："
+                TextWrapping="Wrap" />
+            <TextBox
+                Width="120"
+                Margin="350,54,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                hc:InfoElement.Placeholder="*必填项"
+                FontSize="11"
+                Style="{StaticResource TextBoxExtend}"
+                Text="{Binding Model.ProductTypeCode}"
+                TextWrapping="Wrap" />
+
+            <TextBlock
+                Margin="490,59,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                FontSize="12"
+                Text="说明："
+                TextWrapping="Wrap" />
+            <TextBox
+                Width="120"
+                Margin="530,54,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                hc:InfoElement.Placeholder="选填"
+                FontSize="11"
+                Style="{StaticResource TextBoxExtend}"
+                Text="{Binding Model.Explain}"
+                TextWrapping="Wrap" />
+
+            <Button
+                Width="80"
+                Margin="680,54,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                hc:IconElement.Geometry="{StaticResource AddGeometry}"
+                Command="{Binding InsertCommand}"
+                Content="添加"
+                FontSize="13"
+                Style="{StaticResource ButtonSuccess}" />
+            <Button
+                Width="80"
+                Margin="780,54,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                hc:IconElement.Geometry="{StaticResource SaveGeometry}"
+                Command="{Binding EditCommand}"
+                Content="编辑"
+                FontSize="13"
+                Style="{StaticResource ButtonWarning}" />
+            <Button
+                Width="80"
+                Margin="880,54,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                hc:IconElement.Geometry="{StaticResource DeleteFillCircleGeometry}"
+                Command="{Binding DeleteCommand}"
+                Content="删除"
+                FontSize="13"
+                Style="{StaticResource ButtonDanger}" />
+
+            <!--#endregion-->
+
+        </Grid>
+
+        <!--#endregion-->
+
+        <!--#region DGV-->
+
+        <Grid Grid.Row="1" Margin="0,5,0,0">
+
+            <DataGrid
+                x:Name="dg_User"
+                AutoGenerateColumns="False"
+                Background="White"
+                ColumnHeaderStyle="{StaticResource ColumnHeaderStyle}"
+                FontSize="14"
+                HeadersVisibility="All"
+                ItemsSource="{Binding Models}"
+                RowHeaderWidth="0">
+                <DataGrid.InputBindings>
+                    <MouseBinding
+                        Command="{Binding ShowDetailCommand}"
+                        CommandParameter="{Binding SelectedItem, ElementName=dg_User}"
+                        Gesture="LeftDoubleClick" />
+                </DataGrid.InputBindings>
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        Width=" 80"
+                        Binding="{Binding Id}"
+                        Header="序号"
+                        IsReadOnly="True">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style BasedOn="{StaticResource CenterAlignmentStyle}" TargetType="TextBlock" />
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style BasedOn="{StaticResource CenterAlignmentStyle}" TargetType="TextBox" />
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn
+                        Width="230"
+                        Binding="{Binding ProductTypeName}"
+                        Header="产品类型名称"
+                        IsReadOnly="True">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style BasedOn="{StaticResource CenterAlignmentStyle}" TargetType="TextBlock" />
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style BasedOn="{StaticResource CenterAlignmentStyle}" TargetType="TextBox" />
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn
+                        Width="230"
+                        Binding="{Binding ProductTypeCode}"
+                        Header="产品类型编码"
+                        IsReadOnly="True">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style BasedOn="{StaticResource CenterAlignmentStyle}" TargetType="TextBlock" />
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style BasedOn="{StaticResource CenterAlignmentStyle}" TargetType="TextBox" />
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn
+                        Width="150"
+                        Binding="{Binding Explain}"
+                        Header="说明"
+                        IsReadOnly="True">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style BasedOn="{StaticResource CenterAlignmentStyle}" TargetType="TextBlock" />
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style BasedOn="{StaticResource CenterAlignmentStyle}" TargetType="TextBox" />
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn
+                        Width="200"
+                        Binding="{Binding CreateTime, StringFormat=\{0:yyyy-MM-dd HH:mm:ss\}}"
+                        Header="创建时间"
+                        IsReadOnly="True">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style BasedOn="{StaticResource CenterAlignmentStyle}" TargetType="TextBlock" />
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style BasedOn="{StaticResource CenterAlignmentStyle}" TargetType="TextBox" />
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn
+                        Width="200"
+                        Binding="{Binding LastEditTime, StringFormat=\{0:yyyy-MM-dd HH:mm:ss\}}"
+                        Header="更新时间"
+                        IsReadOnly="True">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style BasedOn="{StaticResource CenterAlignmentStyle}" TargetType="TextBlock" />
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style BasedOn="{StaticResource CenterAlignmentStyle}" TargetType="TextBox" />
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn
+                        Width="300"
+                        Binding="{Binding Remark}"
+                        Header="备注"
+                        IsReadOnly="True">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style BasedOn="{StaticResource CenterAlignmentStyle}" TargetType="TextBlock" />
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style BasedOn="{StaticResource CenterAlignmentStyle}" TargetType="TextBox" />
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </Grid>
+
+        <!--#endregion-->
+
+        <!--#region 分页查询-->
+
+        <Grid
+            Grid.Row="2"
+            Margin="0,0,30,7"
+            HorizontalAlignment="Right">
+            <UCUI:atw_Pagin />
+        </Grid>
+
+        <!--#endregion-->
+
+
+    </Grid>
+</UserControl>
