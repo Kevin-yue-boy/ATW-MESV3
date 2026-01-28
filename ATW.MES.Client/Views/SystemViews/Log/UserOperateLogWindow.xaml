@@ -9,10 +9,11 @@
     Width="700"
     Height="550"
     Topmost="True"
+    WindowStyle="ToolWindow" 
     mc:Ignorable="d">
     <Grid>
 
-        <RichTextBox >
+        <RichTextBox>
             <FlowDocument>
                 <Paragraph>
                     <Run Text="{Binding Log}" />

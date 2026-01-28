@@ -1,4 +1,5 @@
-﻿using ATW.CommonBase.Method.ViewModel;
+﻿using ATW.CommonBase.File.Excel;
+using ATW.CommonBase.Method.ViewModel;
 using ATW.CommonBase.Model.DataAccess;
 using ATW.MES.BLL.System.BaseData;
 using ATW.MES.BLL.System.Log;
@@ -16,6 +17,7 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
 {
     public partial class BaseProcessViewModel : ViewModelBaseMethod<BaseProcessResponse>
     {
+
         #region Parameter
 
         /// <summary>
@@ -75,6 +77,13 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
                   (Func<BaseProcessResponse, bool>)(it => it.ProcessName.Contains(Search));
                 PagingQueryRequest.PageIndex = 1; // 查询结果重置到第一页
                 await PagingQueryAsync(PagingQueryRequest);
+                //Microsoft.Win32.SaveFileDialog dialog = new Microsoft.Win32.SaveFileDialog();
+                //dialog.FileName = $"生产参数数据_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".xls";
+                //dialog.Filter = "Excel 文件(*.xls)|*.xls";
+                //if ((bool)dialog.ShowDialog())
+                //{
+                //    Excel_Export_NPOI.ExportEntitiesToXlsxFile<BaseProcessResponse>(Models, dialog.FileName);
+                //}
             }
             catch (Exception ex)
             {
@@ -118,6 +127,7 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
                     // 添加成功后刷新分页数据
                     await PagingQueryAsync(PagingQueryRequest);
                 }
+                
                 // 提示操作结果
                 MessageBox.Show(responseModel.Msg);
             }
@@ -213,5 +223,6 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
         }
 
         #endregion
+
     }
 }

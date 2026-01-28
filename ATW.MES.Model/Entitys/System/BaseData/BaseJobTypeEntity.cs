@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace ATW.MES.Model.Entitys.System.BaseData
 {
-    [SugarTable("Base_ProductType")]
+    [SugarTable("Base_JobType")]
     [CacheStorage(EnableYN = true)]
-    public class BaseProductTypeEntity
+    public class BaseJobTypeEntity
     {
 
         [SugarColumn(IsPrimaryKey = true, IsIdentity = true)]
@@ -20,16 +20,16 @@ namespace ATW.MES.Model.Entitys.System.BaseData
         public Guid GUID { get; set; }
 
         /// <summary>
-        /// 产品类型名称
+        /// 工作类型名称
         /// </summary>
-        [SugarColumn(IsNullable = false, ColumnDescription = "产品类型名称", Length = 200)]
-        public string ProductTypeName { get; set; }
+        [SugarColumn(IsNullable = false, ColumnDescription = "工作类型名称", Length = 200)]
+        public string JobTypeName { get; set; }
 
         /// <summary>
-        /// 产品类型编码
+        /// 工作类型编码
         /// </summary>
-        [SugarColumn(IsNullable = false, ColumnDescription = "产品类型编码", Length = 200)]
-        public string ProductTypeCode { get; set; }
+        [SugarColumn(IsNullable = false, ColumnDescription = "工作类型编码", Length = 200)]
+        public string JobTypeCode { get; set; }
 
         /// <summary>
         /// 启用

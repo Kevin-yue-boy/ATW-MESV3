@@ -366,7 +366,7 @@
                                         HorizontalAlignment="Right"
                                         Command="{Binding NavCommand}"
                                         CommandParameter="{Binding ElementName=LevelThree_BaseProcess}"
-                                        Content="工序数据"
+                                        Content="基础工序信息"
                                         FontSize="18"
                                         Foreground="Black"
                                         Style="{StaticResource RadioMiniButtonStyle}" />
@@ -377,7 +377,7 @@
                                         HorizontalAlignment="Right"
                                         Command="{Binding NavCommand}"
                                         CommandParameter="{Binding ElementName=LevelThree_BaseUnit}"
-                                        Content="单位信息"
+                                        Content="基础单位信息"
                                         FontSize="18"
                                         Foreground="Black"
                                         Style="{StaticResource RadioMiniButtonStyle}" />
@@ -388,6 +388,16 @@
                                         Command="{Binding NavCommand}"
                                         CommandParameter="{Binding ElementName=LevelThree_BaseProductType}"
                                         Content="产品类型信息"
+                                        FontSize="18"
+                                        Foreground="Black"
+                                        Style="{StaticResource RadioMiniButtonStyle}" />
+                                    <RadioButton
+                                        x:Name="LevelThree_BaseJobType"
+                                        Margin="0,0,40,0"
+                                        HorizontalAlignment="Right"
+                                        Command="{Binding NavCommand}"
+                                        CommandParameter="{Binding ElementName=LevelThree_BaseJobType}"
+                                        Content="工作类型信息"
                                         FontSize="18"
                                         Foreground="Black"
                                         Style="{StaticResource RadioMiniButtonStyle}" />

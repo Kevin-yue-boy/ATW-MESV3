@@ -22,9 +22,9 @@ namespace ATW.MES.Model.DTOs.System.BaseData
         public string ProcessName { get; set; }
 
         /// <summary>
-        /// 工序名称
+        /// 工序编码
         /// </summary>
-        [EntityDataCheckModel(ColumnDescription = "工序名称", IsNullable = false)]
+        [EntityDataCheckModel(ColumnDescription = "工序编码", IsNullable = false)]
         public string ProcessCode { get; set; }
 
         /// <summary>

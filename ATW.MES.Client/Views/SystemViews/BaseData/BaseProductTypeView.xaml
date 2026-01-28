@@ -111,17 +111,31 @@
                 Style="{StaticResource TextBoxExtend}"
                 Text="{Binding Model.ProductTypeCode}"
                 TextWrapping="Wrap" />
-
             <TextBlock
-                Margin="490,59,0,0"
+                Margin="492,59,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                FontSize="12"
+                Text="启用："
+                TextWrapping="Wrap" />
+            <ToggleButton
+                Margin="528,55,0,23"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                hc:ToggleButtonAttach.ShowLabel="True"
+                IsChecked="{Binding Model.Enable}"
+                Style="{StaticResource ToggleButtonSwitch}" />
+            <TextBlock
+                Width="38"
+                Margin="589,59,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 FontSize="12"
                 Text="说明："
                 TextWrapping="Wrap" />
             <TextBox
-                Width="120"
-                Margin="530,54,0,0"
+                Width="305"
+                Margin="632,54,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 hc:InfoElement.Placeholder="选填"
@@ -132,7 +146,7 @@
 
             <Button
                 Width="80"
-                Margin="680,54,0,0"
+                Margin="961,54,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 hc:IconElement.Geometry="{StaticResource AddGeometry}"
@@ -142,7 +156,7 @@
                 Style="{StaticResource ButtonSuccess}" />
             <Button
                 Width="80"
-                Margin="780,54,0,0"
+                Margin="1060,54,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 hc:IconElement.Geometry="{StaticResource SaveGeometry}"
@@ -152,7 +166,7 @@
                 Style="{StaticResource ButtonWarning}" />
             <Button
                 Width="80"
-                Margin="880,54,0,0"
+                Margin="1160,54,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 hc:IconElement.Geometry="{StaticResource DeleteFillCircleGeometry}"
@@ -160,6 +174,7 @@
                 Content="删除"
                 FontSize="13"
                 Style="{StaticResource ButtonDanger}" />
+
 
             <!--#endregion-->
 
@@ -224,7 +239,19 @@
                         </DataGridTextColumn.EditingElementStyle>
                     </DataGridTextColumn>
                     <DataGridTextColumn
-                        Width="150"
+                        Width="80"
+                        Binding="{Binding Enable}"
+                        Header="启用"
+                        IsReadOnly="True">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style BasedOn="{StaticResource CenterAlignmentStyle}" TargetType="TextBlock" />
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.EditingElementStyle>
+                            <Style BasedOn="{StaticResource CenterAlignmentStyle}" TargetType="TextBox" />
+                        </DataGridTextColumn.EditingElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn
+                        Width="300"
                         Binding="{Binding Explain}"
                         Header="说明"
                         IsReadOnly="True">

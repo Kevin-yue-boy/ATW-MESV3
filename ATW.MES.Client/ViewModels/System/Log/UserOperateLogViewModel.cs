@@ -1,9 +1,12 @@
 ﻿using ATW.CommonBase.Method.ViewModel;
+using ATW.CommonBase.Model;
 using ATW.CommonBase.Model.DataAccess;
 using ATW.MES.BLL.System.Log;
 using ATW.MES.Client.Views.SystemViews.Log;
 using ATW.MES.Model.DTOs.System.Log;
 using CommunityToolkit.Mvvm.Input;
+using HandyControl.Controls;
+using HandyControl.Tools.Extension;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,7 +47,7 @@ namespace ATW.MES.Client.ViewModels.System.Log
 
         #endregion
 
-        #region 初始化 VS 中 Git 状态图标含义速查表VS 中 Git 状态图标含义速查表
+        #region 初始化
 
         public override async void Initialize()
         {

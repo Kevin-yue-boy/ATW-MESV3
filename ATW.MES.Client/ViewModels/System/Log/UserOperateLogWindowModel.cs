@@ -30,7 +30,5 @@ namespace ATW.MES.Client.ViewModels.System.Log
 
         #endregion
 
-
-
     }
 }

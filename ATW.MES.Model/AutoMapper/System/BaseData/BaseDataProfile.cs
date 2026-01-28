@@ -16,6 +16,7 @@ namespace ATW.MES.Model.AutoMapper.System.BaseData
 
         public BaseDataProfile()
         {
+
             CreateMap<BaseProcessEntity, BaseProcessResponse>();
             CreateMap<BaseProcessResponse, BaseProcessEntity>();
 
@@ -24,6 +25,9 @@ namespace ATW.MES.Model.AutoMapper.System.BaseData
 
             CreateMap<BaseUnitEntity, BaseUnitResponse>();
             CreateMap<BaseUnitResponse, BaseUnitEntity>();
+
+            CreateMap<BaseJobTypeEntity, BaseJobTypeResponse>();
+            CreateMap<BaseJobTypeResponse, BaseJobTypeEntity>();
 
         }
 

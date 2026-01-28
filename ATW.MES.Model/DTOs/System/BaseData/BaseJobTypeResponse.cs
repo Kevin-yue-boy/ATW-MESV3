@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ATW.MES.Model.DTOs.System.BaseData
 {
-    public class BaseProductTypeResponse
+    public class BaseJobTypeResponse
     {
 
         public int Id { get; set; }
@@ -16,16 +16,16 @@ namespace ATW.MES.Model.DTOs.System.BaseData
         public Guid GUID { get; set; }
 
         /// <summary>
-        /// 产品类型名称
+        /// 工作类型名称
         /// </summary>
-        [EntityDataCheckModel(ColumnDescription = "产品类型名称", IsNullable = false)]
-        public string ProductTypeName { get; set; }
+        [EntityDataCheckModel(ColumnDescription = "工作类型名称", IsNullable = false)]
+        public string JobTypeName { get; set; }
 
         /// <summary>
-        /// 产品类型名称
+        /// 工作类型编码
         /// </summary>
-        [EntityDataCheckModel(ColumnDescription = "产品类型名称", IsNullable = false)]
-        public string ProductTypeCode { get; set; }
+        [EntityDataCheckModel(ColumnDescription = "工作类型编码", IsNullable = false)]
+        public string JobTypeCode { get; set; }
 
         /// <summary>
         /// 启用
@@ -41,7 +41,7 @@ namespace ATW.MES.Model.DTOs.System.BaseData
 
         /// <summary>
         /// 创建时间
-        /// </summary>
+        /// </summary>        
         public DateTime CreateTime { get; set; }
 
         /// <summary>
@@ -53,7 +53,6 @@ namespace ATW.MES.Model.DTOs.System.BaseData
         /// 备注
         /// </summary>        
         public string Remark { get; set; }
-
 
     }
 }
