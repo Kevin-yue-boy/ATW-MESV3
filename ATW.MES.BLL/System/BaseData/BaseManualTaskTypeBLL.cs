@@ -11,22 +11,22 @@ using System.Threading.Tasks;
 
 namespace ATW.MES.BLL.System.BaseData
 {
-    public class BaseJobTypeBLL
+    public class BaseManualTaskTypeBLL
     {
         #region Parameter
 
         /// <summary>
         /// 工作类型数据访问层
         /// </summary>
-        private BaseJobTypeDAL BaseJobTypeDAL { get; set; }
+        private BaseManualTaskTypeDAL BaseManualTaskTypeDAL { get; set; }
 
         #endregion
 
         #region 构造函数
 
-        public BaseJobTypeBLL(BaseJobTypeDAL baseJobTypeDAL)
+        public BaseManualTaskTypeBLL(BaseManualTaskTypeDAL baseJobTypeDAL)
         {
-            this.BaseJobTypeDAL = baseJobTypeDAL;
+            this.BaseManualTaskTypeDAL = baseJobTypeDAL;
         }
 
         #endregion
@@ -39,7 +39,7 @@ namespace ATW.MES.BLL.System.BaseData
         /// <param name="baseJobTypeResponse">工作类型信息</param>
         /// <param name="responseModel">反馈添加结果</param>
         /// <returns></returns>
-        public async Task Insert(BaseJobTypeResponse baseJobTypeResponse, ResponseModel responseModel)
+        public async Task Insert(BaseManualTaskTypeResponse baseJobTypeResponse, ResponseModel responseModel)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace ATW.MES.BLL.System.BaseData
 
                 #region 数据重复校验
 
-                var baseJobTypeResponses = await BaseJobTypeDAL.Get();
+                var baseJobTypeResponses = await BaseManualTaskTypeDAL.Get();
 
                 // 校验工作类型名称是否重复
                 var exist_JobTypeName = baseJobTypeResponses.Exists(it => { return it.JobTypeName == baseJobTypeResponse.JobTypeName; });
@@ -82,7 +82,7 @@ namespace ATW.MES.BLL.System.BaseData
                 baseJobTypeResponse.CreateTime = DateTime.Now;
 
                 // 执行新增并返回结果
-                responseModel.Result = (await BaseJobTypeDAL.Insert(baseJobTypeResponse)) == 1;
+                responseModel.Result = (await BaseManualTaskTypeDAL.Insert(baseJobTypeResponse)) == 1;
                 responseModel.Msg += responseModel.Result ? "添加成功！" : "添加失败！";
             }
             catch (Exception ex)
@@ -103,8 +103,8 @@ namespace ATW.MES.BLL.System.BaseData
         /// <param name="baseJobTypeResponse_Old">工作类型信息（原始数据）</param>
         /// <param name="responseModel">反馈编辑结果</param>
         /// <returns></returns>
-        public async Task Edit(BaseJobTypeResponse baseJobTypeResponse,
-            BaseJobTypeResponse baseJobTypeResponse_Old, ResponseModel responseModel)
+        public async Task Edit(BaseManualTaskTypeResponse baseJobTypeResponse,
+            BaseManualTaskTypeResponse baseJobTypeResponse_Old, ResponseModel responseModel)
         {
             try
             {
@@ -119,7 +119,7 @@ namespace ATW.MES.BLL.System.BaseData
 
                 #region 数据重复校验
 
-                var baseJobTypeResponses = await BaseJobTypeDAL.Get();
+                var baseJobTypeResponses = await BaseManualTaskTypeDAL.Get();
 
                 // 校验工作类型名称是否重复（排除自身）
                 var exist_JobTypeName = baseJobTypeResponses.Exists(it => {
@@ -151,7 +151,7 @@ namespace ATW.MES.BLL.System.BaseData
                 baseJobTypeResponse.LastEditTime = DateTime.Now;
 
                 // 执行编辑并返回结果
-                responseModel.Result = (await BaseJobTypeDAL.Edit(baseJobTypeResponse)) == 1;
+                responseModel.Result = (await BaseManualTaskTypeDAL.Edit(baseJobTypeResponse)) == 1;
                 responseModel.Msg += responseModel.Result ? "编辑成功！" : "编辑失败！";
             }
             catch (Exception ex)
@@ -171,7 +171,7 @@ namespace ATW.MES.BLL.System.BaseData
         /// <param name="baseJobTypeResponse">工作类型信息</param>
         /// <param name="responseModel">反馈删除结果</param>
         /// <returns></returns>
-        public async Task Delete(BaseJobTypeResponse baseJobTypeResponse, ResponseModel responseModel)
+        public async Task Delete(BaseManualTaskTypeResponse baseJobTypeResponse, ResponseModel responseModel)
         {
             try
             {
@@ -186,7 +186,7 @@ namespace ATW.MES.BLL.System.BaseData
 
                 #region 校验数据存在
 
-                var baseJobTypeResponses = await BaseJobTypeDAL.Get();
+                var baseJobTypeResponses = await BaseManualTaskTypeDAL.Get();
 
                 var exist = baseJobTypeResponses.Exists(it => {
                     return it.GUID == baseJobTypeResponse.GUID;
@@ -201,7 +201,7 @@ namespace ATW.MES.BLL.System.BaseData
                 #endregion
 
                 // 执行删除并返回结果
-                responseModel.Result = (await BaseJobTypeDAL.Delete(baseJobTypeResponse)) == 1;
+                responseModel.Result = (await BaseManualTaskTypeDAL.Delete(baseJobTypeResponse)) == 1;
                 responseModel.Msg += responseModel.Result ? "删除成功！" : "删除失败！";
             }
             catch (Exception ex)
@@ -220,9 +220,9 @@ namespace ATW.MES.BLL.System.BaseData
         /// </summary>
         /// <param name="pagingQueryRequest">分页查询条件</param>
         /// <returns>分页后的工作类型信息列表</returns>
-        public async Task<List<BaseJobTypeResponse>> PagingQueryAsync(PagingQueryRequestModel pagingQueryRequest)
+        public async Task<List<BaseManualTaskTypeResponse>> PagingQueryAsync(PagingQueryRequestModel pagingQueryRequest)
         {
-            return await BaseJobTypeDAL.PagingQueryAsync(pagingQueryRequest);
+            return await BaseManualTaskTypeDAL.PagingQueryAsync(pagingQueryRequest);
         }
 
         #endregion
@@ -233,9 +233,9 @@ namespace ATW.MES.BLL.System.BaseData
         /// 查找工作类型信息
         /// </summary>
         /// <returns>工作类型信息列表</returns>
-        public async Task<List<BaseJobTypeResponse>> Get()
+        public async Task<List<BaseManualTaskTypeResponse>> Get()
         {
-            return await BaseJobTypeDAL.Get();
+            return await BaseManualTaskTypeDAL.Get();
         }
 
         #endregion

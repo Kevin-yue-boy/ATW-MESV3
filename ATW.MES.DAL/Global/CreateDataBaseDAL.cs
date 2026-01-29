@@ -53,7 +53,7 @@ namespace ATW.MES.DAL.Global
             Db_MES.CodeFirst.InitTables(typeof(BaseProductTypeEntity));
             Db_MES.CodeFirst.InitTables(typeof(BasePLCInterfaceBaseEntity));
             Db_MES.CodeFirst.InitTables(typeof(BaseUnitEntity));
-            Db_MES.CodeFirst.InitTables(typeof(BaseJobTypeEntity));
+            Db_MES.CodeFirst.InitTables(typeof(BaseManualTaskTypeEntity));
             
             #endregion
 

@@ -16,7 +16,7 @@ using System.Windows;
 
 namespace ATW.MES.Client.ViewModels.System.BaseData
 {
-    public partial class BaseJobTypeViewModel : ViewModelBaseMethod<BaseJobTypeResponse>
+    public partial class BaseJobTypeViewModel : ViewModelBaseMethod<BaseManualTaskTypeResponse>
     {
 
         #region Parameter
@@ -24,7 +24,7 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
         /// <summary>
         /// 工作类型业务逻辑类
         /// </summary>
-        private BaseJobTypeBLL BaseJobTypeBLL { get; set; } = null;
+        private BaseManualTaskTypeBLL BaseManualTaskTypeBLL { get; set; } = null;
 
         /// <summary>
         /// ES日志
@@ -41,7 +41,7 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
             RefreshPage();
 
             // 注入工作类型业务类
-            this.BaseJobTypeBLL = Ioc.Default.GetRequiredService<BaseJobTypeBLL>();
+            this.BaseManualTaskTypeBLL = Ioc.Default.GetRequiredService<BaseManualTaskTypeBLL>();
             // 注入ES日志
             this.ESLogger = Ioc.Default.GetRequiredService<ESLoggerBLL>();
 
@@ -61,7 +61,7 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
         /// <param name="pagingQueryRequest">分页查询条件</param>
         public override async Task PagingQueryAsync(PagingQueryRequestModel pagingQueryRequest)
         {
-            Models = await BaseJobTypeBLL.PagingQueryAsync(PagingQueryRequest);
+            Models = await BaseManualTaskTypeBLL.PagingQueryAsync(PagingQueryRequest);
             RefreshPage();
         }
 
@@ -76,7 +76,7 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
             {
                 // 空判断，按工作类型名称模糊查询
                 PagingQueryRequest.Predicate = string.IsNullOrWhiteSpace(Search) ? null :
-                  (Func<BaseJobTypeResponse, bool>)(it => it.JobTypeName.Contains(Search));
+                  (Func<BaseManualTaskTypeResponse, bool>)(it => it.JobTypeName.Contains(Search));
                 PagingQueryRequest.PageIndex = 1; // 查询结果重置到第一页
                 await PagingQueryAsync(PagingQueryRequest);
             }
@@ -103,7 +103,7 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
             sw.Start();
             try
             {
-                await BaseJobTypeBLL.Insert(Model, responseModel);
+                await BaseManualTaskTypeBLL.Insert(Model, responseModel);
             }
             catch (Exception ex)
             {
@@ -143,7 +143,7 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
             sw.Start();
             try
             {
-                await BaseJobTypeBLL.Edit(Model, Model_Old, responseModel);
+                await BaseManualTaskTypeBLL.Edit(Model, Model_Old, responseModel);
             }
             catch (Exception ex)
             {
@@ -190,7 +190,7 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
             sw.Start();
             try
             {
-                await BaseJobTypeBLL.Delete(Model_Old, responseModel);
+                await BaseManualTaskTypeBLL.Delete(Model_Old, responseModel);
             }
             catch (Exception ex)
             {
