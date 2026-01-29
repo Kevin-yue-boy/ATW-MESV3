@@ -39,7 +39,7 @@ namespace ATW.MES.BLL.System.Log
         /// 分页查询
         /// </summary>
         /// <returns></returns>
-        public async Task<List<UserOperateLogResponse>> PagingQueryAsync(PagingQueryRequestModel pagingQueryRequest
+        public async Task<List<UserOperateLogDTO>> PagingQueryAsync(PagingQueryRequestModel pagingQueryRequest
             , string field
             , string value
             , DateTime start

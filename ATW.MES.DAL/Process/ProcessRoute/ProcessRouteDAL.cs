@@ -44,20 +44,20 @@ namespace ATW.MES.DAL.Process.ProcessRoute
         /// </summary>
         /// <param name="processRouteGUID"></param>
         /// <returns></returns>
-        public async Task<List<ProcessRouteResponse>> GetByProcessRouteGUID(Guid processRouteGUID)
+        public async Task<List<ProcessRouteDTO>> GetByProcessRouteGUID(Guid processRouteGUID)
         {
-            List<ProcessRouteResponse> processRouteResponses = new List<ProcessRouteResponse>();
+            List<ProcessRouteDTO> processRouteDTOs = new List<ProcessRouteDTO>();
             var processRoutes = await CUSR.GetListAsync<ProcessRouteEntity>(it => it.ProcessRouteGUID == processRouteGUID);
-            processRouteResponses = IM.Map<List<ProcessRouteResponse>>(processRoutes);
-            if (processRouteResponses!=null&& processRouteResponses.Count>0)
+            processRouteDTOs = IM.Map<List<ProcessRouteDTO>>(processRoutes);
+            if (processRouteDTOs!=null&& processRouteDTOs.Count>0)
             {
                 var baseProcessEntitys = await CUSR.GetListAsync<BaseProcessEntity>();
-                processRouteResponses.ForEach(it => {
+                processRouteDTOs.ForEach(it => {
                     it.ProcessName = baseProcessEntitys?.Find(ix => { return ix.GUID == it.BaseProcessGUID; }).ProcessName;
                     it.ProcessCode = baseProcessEntitys?.Find(ix => { return ix.GUID == it.BaseProcessGUID; }).ProcessCode;
                 });
             }
-            return processRouteResponses;
+            return processRouteDTOs;
         }
 
         #endregion

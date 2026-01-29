@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ATW.MES.Model.DTOs.System.Log
 {
-    public class UserOperateLogResponse
+    public class UserOperateLogDTO
     {
 
         /// <summary>

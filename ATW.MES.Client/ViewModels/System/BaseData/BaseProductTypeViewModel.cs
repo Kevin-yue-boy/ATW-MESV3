@@ -16,7 +16,7 @@ using System.Windows;
 
 namespace ATW.MES.Client.ViewModels.System.BaseData
 {
-    public partial class BaseProductTypeViewModel : ViewModelBaseMethod<BaseProductTypeResponse>
+    public partial class BaseProductTypeViewModel : ViewModelBaseMethod<BaseProductTypeDTO>
     {
 
         #region Parameter
@@ -76,7 +76,7 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
             {
                 // 空判断，按产品类型名称模糊查询
                 PagingQueryRequest.Predicate = string.IsNullOrWhiteSpace(Search) ? null :
-                  (Func<BaseProductTypeResponse, bool>)(it => it.ProductTypeName.Contains(Search));
+                  (Func<BaseProductTypeDTO, bool>)(it => it.ProductTypeName.Contains(Search));
                 PagingQueryRequest.PageIndex = 1; // 查询结果重置到第一页
                 await PagingQueryAsync(PagingQueryRequest);
             }

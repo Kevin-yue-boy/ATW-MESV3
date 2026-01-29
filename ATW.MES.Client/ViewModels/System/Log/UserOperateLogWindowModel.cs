@@ -22,10 +22,10 @@ namespace ATW.MES.Client.ViewModels.System.Log
 
         #region 加载
 
-        public UserOperateLogWindowModel(UserOperateLogResponse userOperateLogResponse)
+        public UserOperateLogWindowModel(UserOperateLogDTO userOperateLogDTO)
         {
-            Log = $"记录:\r  {userOperateLogResponse.Log}\r" +
-                  $"底层数据:\r  {userOperateLogResponse.UnderlyingData}";
+            Log = $"记录:\r  {userOperateLogDTO.Log}\r" +
+                  $"底层数据:\r  {userOperateLogDTO.UnderlyingData}";
         }
 
         #endregion

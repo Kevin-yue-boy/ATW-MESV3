@@ -18,7 +18,7 @@ namespace ATW.MES.BLL.Process.ProcessRoute
         /// </summary>
         /// <param name="processRouteName"></param>
         /// <returns></returns>
-        public async Task<List<ProcessRouteResponse>> GetByProcessRouteName(string processRouteName, ResponseModel responseModel)
+        public async Task<List<ProcessRouteDTO>> GetByProcessRouteName(string processRouteName, ResponseModel responseModel)
         {
             responseModel.Result = true;
             var processRouteBaseResponse = await Ioc.Default.GetRequiredService<ProcessRouteBaseDAL>()
@@ -41,7 +41,7 @@ namespace ATW.MES.BLL.Process.ProcessRoute
         /// </summary>
         /// <param name="processRouteGUID"></param>
         /// <returns></returns>
-        public async Task<List<ProcessRouteResponse>> GetByProcessRouteGUID
+        public async Task<List<ProcessRouteDTO>> GetByProcessRouteGUID
             (Guid processRouteGUID, ResponseModel responseModel)
         {
             responseModel.Result = true;

@@ -1,9 +1,14 @@
 ﻿using ATW.CommonBase.Model.Log;
 using SqlSugar;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ATW.MES.Model.DTOs.Process.Product
+namespace ATW.MES.Model.DTOs.System.BaseData
 {
-    public class ProductResponse
+    public class BaseProcessDTO
     {
 
         public int Id { get; set; }
@@ -11,25 +16,26 @@ namespace ATW.MES.Model.DTOs.Process.Product
         public Guid GUID { get; set; }
 
         /// <summary>
-        /// 产品名称
+        /// 工序名称
         /// </summary>
-        [EntityDataCheckModel(ColumnDescription = "产品名称", IsNullable = false)]
-        public string ProductName { get; set; }
+        [EntityDataCheckModel(ColumnDescription = "工序名称", IsNullable = false)]
+        public string ProcessName { get; set; }
 
         /// <summary>
-        /// 产品编码
+        /// 工序编码
         /// </summary>
-        [EntityDataCheckModel(ColumnDescription = "产品编码", IsNullable = false)]
-        public string ProductCode { get; set; }
+        [EntityDataCheckModel(ColumnDescription = "工序编码", IsNullable = false)]
+        public string ProcessCode { get; set; }
 
         /// <summary>
         /// 说明
         /// </summary>
+        [EntityDataCheckModel(ColumnDescription = "说明", IsNullable = true)]
         public string Explain { get; set; }
 
         /// <summary>
         /// 创建时间
-        /// </summary>        
+        /// </summary>
         public DateTime CreateTime { get; set; }
 
         /// <summary>

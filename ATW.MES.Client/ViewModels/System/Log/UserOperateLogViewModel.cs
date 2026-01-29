@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace ATW.MES.Client.ViewModels.System.Log
 {
-    public partial class UserOperateLogViewModel : ViewModelBaseMethod<UserOperateLogResponse>
+    public partial class UserOperateLogViewModel : ViewModelBaseMethod<UserOperateLogDTO>
     {
 
         #region Parameter
@@ -83,7 +83,7 @@ namespace ATW.MES.Client.ViewModels.System.Log
 
             //空判断
             PagingQueryRequest.Predicate = string.IsNullOrWhiteSpace(Search) ? null :
-             (Func<UserOperateLogResponse, IComparable>)(f => f.UserName);
+             (Func<UserOperateLogDTO, IComparable>)(f => f.UserName);
             var field = SearchType == "全部日志" ? "" :
                  SearchType == "用户名称" ? "UserName" :
                  SearchType == "页面名称" ? "PageName" :
@@ -128,11 +128,11 @@ namespace ATW.MES.Client.ViewModels.System.Log
         {
             if (smodel != null)
             {
-                var userOperateLogResponse = smodel as UserOperateLogResponse;
-                if (userOperateLogResponse != null)
+                var userOperateLogDTO = smodel as UserOperateLogDTO;
+                if (userOperateLogDTO != null)
                 {
                     UserOperateLogWindow win = new UserOperateLogWindow();
-                    win.DataContext = new UserOperateLogWindowModel(userOperateLogResponse);
+                    win.DataContext = new UserOperateLogWindowModel(userOperateLogDTO);
                     win.ShowDialog();
                 }
             }

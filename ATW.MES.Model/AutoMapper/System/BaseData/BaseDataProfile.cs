@@ -17,17 +17,24 @@ namespace ATW.MES.Model.AutoMapper.System.BaseData
         public BaseDataProfile()
         {
 
-            CreateMap<BaseProcessEntity, BaseProcessResponse>();
-            CreateMap<BaseProcessResponse, BaseProcessEntity>();
+            CreateMap<BaseProcessEntity, BaseProcessDTO>();
+            CreateMap<BaseProcessDTO, BaseProcessEntity>();
 
-            CreateMap<BaseProductTypeEntity, BaseProductTypeResponse>();
-            CreateMap<BaseProductTypeResponse, BaseProductTypeEntity>();
+            CreateMap<BaseProductTypeEntity, BaseProductTypeDTO>();
+            CreateMap<BaseProductTypeDTO, BaseProductTypeEntity>();
 
-            CreateMap<BaseUnitEntity, BaseUnitResponse>();
-            CreateMap<BaseUnitResponse, BaseUnitEntity>();
+            CreateMap<BaseUnitEntity, BaseUnitDTO>();
+            CreateMap<BaseUnitDTO, BaseUnitEntity>();
 
-            CreateMap<BaseWorkTypeEntity, BaseWorkTypeResponse>();
-            CreateMap<BaseWorkTypeResponse, BaseWorkTypeEntity>();
+            CreateMap<BaseWorkTypeEntity, BaseWorkTypeDTO>();
+            CreateMap<BaseWorkTypeDTO, BaseWorkTypeEntity>();
+
+            CreateMap<BaseToolTypeEntity, BaseToolTypeDTO>()
+                .ForMember(d => d.WorkTypeName, opt =>
+                {
+                    opt.MapFrom(s => s.WorkTypeGUID);
+                });
+            CreateMap<BaseToolTypeDTO, BaseToolTypeEntity>();
 
         }
 

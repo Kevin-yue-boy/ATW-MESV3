@@ -16,15 +16,15 @@ using System.Windows;
 
 namespace ATW.MES.Client.ViewModels.System.BaseData
 {
-    public partial class BaseWorkTypeViewModel : ViewModelBaseMethod<BaseWorkTypeDTO>
+    public partial class BaseToolTypeViewModel : ViewModelBaseMethod<BaseToolTypeDTO>
     {
 
         #region Parameter
 
         /// <summary>
-        /// 工作类型业务逻辑类
+        /// 工具类型业务逻辑类
         /// </summary>
-        private BaseWorkTypeBLL BaseWorkTypeBLL { get; set; } = null;
+        private BaseToolTypeBLL BaseToolTypeBLL { get; set; } = null;
 
         /// <summary>
         /// ES日志
@@ -37,11 +37,11 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
 
         public override async void Initialize()
         {
-            PageName = "工作类型信息"; 
+            PageName = "工具类型信息"; 
             RefreshPage();
 
-            // 注入工作类型业务类
-            this.BaseWorkTypeBLL = Ioc.Default.GetRequiredService<BaseWorkTypeBLL>();
+            // 注入工具类型业务类
+            this.BaseToolTypeBLL = Ioc.Default.GetRequiredService<BaseToolTypeBLL>();
             // 注入ES日志
             this.ESLogger = Ioc.Default.GetRequiredService<ESLoggerBLL>();
 
@@ -56,12 +56,12 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
         #region 重写分页查询
 
         /// <summary>
-        /// 分页查询工作类型信息
+        /// 分页查询工装类型信息
         /// </summary>
         /// <param name="pagingQueryRequest">分页查询条件</param>
         public override async Task PagingQueryAsync(PagingQueryRequestModel pagingQueryRequest)
         {
-            Models = await BaseWorkTypeBLL.PagingQueryAsync(PagingQueryRequest);
+            Models = await BaseToolTypeBLL.PagingQueryAsync(PagingQueryRequest);
             RefreshPage();
         }
 
@@ -74,9 +74,9 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
         {
             try
             {
-                // 空判断，按工作类型名称模糊查询
+                // 空判断，按工具类型名称模糊查询
                 PagingQueryRequest.Predicate = string.IsNullOrWhiteSpace(Search) ? null :
-                  (Func<BaseWorkTypeDTO, bool>)(it => it.WorkTypeName.Contains(Search));
+                  (Func<BaseToolTypeDTO, bool>)(it => it.ToolTypeName.Contains(Search));
                 PagingQueryRequest.PageIndex = 1; // 查询结果重置到第一页
                 await PagingQueryAsync(PagingQueryRequest);
             }
@@ -92,7 +92,7 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
         #region 添加
 
         /// <summary>
-        /// 添加工作类型
+        /// 添加工具类型
         /// </summary>
         /// <returns></returns>
         [RelayCommand]
@@ -103,7 +103,7 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
             sw.Start();
             try
             {
-                await BaseWorkTypeBLL.Insert(Model, responseModel);
+                await BaseToolTypeBLL.Insert(Model, responseModel);
             }
             catch (Exception ex)
             {
@@ -132,7 +132,7 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
         #region 编辑
 
         /// <summary>
-        /// 编辑工作类型
+        /// 编辑工具类型
         /// </summary>
         /// <returns></returns>
         [RelayCommand]
@@ -143,7 +143,7 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
             sw.Start();
             try
             {
-                await BaseWorkTypeBLL.Edit(Model, Model_Old, responseModel);
+                await BaseToolTypeBLL.Edit(Model, Model_Old, responseModel);
             }
             catch (Exception ex)
             {
@@ -172,14 +172,14 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
         #region 删除
 
         /// <summary>
-        /// 删除工作类型
+        /// 删除工具类型
         /// </summary>
         /// <returns></returns>
         [RelayCommand]
         public async Task Delete()
         {
             // 增加删除确认提示
-            if (MessageBox.Show($"确认删除工作类型【{Model_Old?.WorkTypeName}】吗？", "删除确认",
+            if (MessageBox.Show($"确认删除工具类型【{Model_Old?.ToolTypeName}】吗？", "删除确认",
                 MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
             {
                 return;
@@ -190,7 +190,7 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
             sw.Start();
             try
             {
-                await BaseWorkTypeBLL.Delete(Model_Old, responseModel);
+                await BaseToolTypeBLL.Delete(Model_Old, responseModel);
             }
             catch (Exception ex)
             {
@@ -201,7 +201,7 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
             {
                 sw.Stop();
                 // 记录删除操作日志
-                ESLogger.OperateLog(responseModel.Msg, Model, EnumOperateLogType.DeleteData,
+                ESLogger.OperateLog(responseModel.Msg, Model_Old, EnumOperateLogType.DeleteData,
                     responseModel.Result, sw.ElapsedMilliseconds);
 
                 if (responseModel.Result)
@@ -213,6 +213,36 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
                 MessageBox.Show(responseModel.Msg);
             }
         }
+
+        #endregion
+
+        #region 下拉框_IO配方名称
+
+        //#region IO配方名称点击事件
+
+        //public RelayCommand<Object> GetWorkTypeName_ClickCommand => new RelayCommand<Object>((Object smodel) =>
+        //{
+        //    if (smodel != null)
+        //    {
+        //        var _IORecipe = smodel as EquipmentMa_IORecipe;
+
+        //    }
+        //});
+
+        //#endregion
+
+        //#region IO配方名称下拉事件
+
+        //public RelayCommand<Object> GetWorkTypeName_DropDownOpenedCommand => new RelayCommand<Object>((Object smodel) =>
+        //{
+        //    IORecipeNames = MySqlATWHelper.QueryToList<EquipmentMa_IORecipe>();
+        //    if (IORecipeNames == null || IORecipeNames.Count < 1)
+        //    {
+        //        MessageBox.Show($"未查询到继电器配方相关信息，请添加！");
+        //    }
+        //});
+
+        //#endregion
 
         #endregion
 

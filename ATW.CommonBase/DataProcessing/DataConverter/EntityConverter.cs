@@ -69,5 +69,47 @@ namespace ATW.CommonBase.DataProcessing.DataConverter
 
         #endregion
 
+        #region 根据属性名字符串获取实体类实例的属性值
+
+        /// <summary>
+        /// 根据属性名字符串获取实体类实例的属性值
+        /// </summary>
+        /// <param name="entityInstance">实体类实例（获取静态属性时可传null）</param>
+        /// <param name="propertyName">要获取的属性名称（区分大小写，需与实体类属性名完全一致）</param>
+        /// <returns>属性对应的实际值（object类型，可按需强转）</returns>
+        /// <exception cref="ArgumentNullException">实体实例/属性名为空时抛出</exception>
+        /// <exception cref="ArgumentException">属性不存在时抛出</exception>
+        public static object GetEntityPropertyValue(object entityInstance, string propertyName)
+        {
+            // 1. 校验输入参数
+            if (string.IsNullOrWhiteSpace(propertyName))
+            {
+                throw new ArgumentNullException(nameof(propertyName), "属性名称不能为空或空白");
+            }
+            // 获取实例类型（静态属性时instance为null，需直接传类型）
+            Type entityType = entityInstance?.GetType() ?? throw new ArgumentNullException(nameof(entityInstance),
+                "获取非静态属性时，实体实例不能为null；获取静态属性请使用重载方法");
+
+            // 2. 查找属性（支持public的实例/静态属性）
+            PropertyInfo propertyInfo = entityType.GetProperty(
+                propertyName,
+                BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
+
+            // 3. 校验属性是否存在
+            if (propertyInfo == null)
+            {
+                throw new ArgumentException($"实体类【{entityType.Name}】中未找到属性【{propertyName}】", nameof(propertyName));
+            }
+
+            // 4. 获取属性值（静态属性时instance传null）
+            object propertyValue = propertyInfo.GetValue(entityInstance);
+
+            // 5. 返回属性值（值类型会自动装箱，null值也会正常返回）
+            return propertyValue;
+        }
+
+        #endregion
+
+
     }
 }

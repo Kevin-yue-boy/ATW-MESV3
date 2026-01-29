@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 
 namespace ATW.MES.Client.ViewModels.Equipment.BsaeEquipment
 {
-    public partial class EquipmentCommunicateViewModel : ViewModelBaseMethod<EquipmentCommunicateResponse>
+    public partial class EquipmentCommunicateViewModel : ViewModelBaseMethod<EquipmentCommunicateDTO>
     {
 
         #region Parameter
@@ -83,7 +83,7 @@ namespace ATW.MES.Client.ViewModels.Equipment.BsaeEquipment
             {
                 //空判断
                 PagingQueryRequest.Predicate = string.IsNullOrWhiteSpace(Search) ? null :
-                  (Func<EquipmentCommunicateResponse, bool>)(it => it.CommunicateName == Search);
+                  (Func<EquipmentCommunicateDTO, bool>)(it => it.CommunicateName == Search);
                 PagingQueryRequest.PageIndex = 1;
                 await PagingQueryAsync(PagingQueryRequest);
             }

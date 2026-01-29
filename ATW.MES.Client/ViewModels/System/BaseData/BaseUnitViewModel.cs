@@ -16,7 +16,7 @@ using System.Windows;
 
 namespace ATW.MES.Client.ViewModels.System.BaseData
 {
-    public partial class BaseUnitViewModel : ViewModelBaseMethod<BaseUnitResponse>
+    public partial class BaseUnitViewModel : ViewModelBaseMethod<BaseUnitDTO>
     {
         #region Parameter
 
@@ -74,7 +74,7 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
             {
                 // 空判断，按单位名称模糊查询
                 PagingQueryRequest.Predicate = string.IsNullOrWhiteSpace(Search) ? null :
-                  (Func<BaseUnitResponse, bool>)(it => it.UnitName.Contains(Search));
+                  (Func<BaseUnitDTO, bool>)(it => it.UnitName.Contains(Search));
                 PagingQueryRequest.PageIndex = 1; // 查询结果重置到第一页
                 await PagingQueryAsync(PagingQueryRequest);
             }

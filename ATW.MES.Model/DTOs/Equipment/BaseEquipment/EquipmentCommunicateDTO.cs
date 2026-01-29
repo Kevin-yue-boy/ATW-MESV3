@@ -6,32 +6,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ATW.MES.Model.DTOs.System.BaseData
+namespace ATW.MES.Model.DTOs.Equipment.BaseEquipment
 {
-    public class BaseProductTypeResponse
+    public class EquipmentCommunicateDTO
     {
-
         public int Id { get; set; }
 
         public Guid GUID { get; set; }
 
         /// <summary>
-        /// 产品类型名称
+        /// 通讯名称
         /// </summary>
-        [EntityDataCheckModel(ColumnDescription = "产品类型名称", IsNullable = false)]
-        public string ProductTypeName { get; set; }
+        [EntityDataCheckModel(ColumnDescription = "通讯名称",IsNullable =false)]
+        public string CommunicateName { get; set; }
 
         /// <summary>
-        /// 产品类型名称
+        /// 通讯编码
         /// </summary>
-        [EntityDataCheckModel(ColumnDescription = "产品类型名称", IsNullable = false)]
-        public string ProductTypeCode { get; set; }
+        [EntityDataCheckModel(ColumnDescription = "通讯编码", IsNullable = false)]
+        public string CommunicateCode { get; set; }
 
         /// <summary>
         /// 启用
         /// </summary>
         [EntityDataCheckModel(ColumnDescription = "启用", IsNullable = false)]
         public bool Enable { get; set; }
+
+        /// <summary>
+        /// 通讯类型
+        /// </summary>
+        [EntityDataCheckModel(ColumnDescription = "通讯类型", IsNullable = false)]
+        public string CommunicateType { get; set; }
+
+        /// <summary>
+        /// 连接字符串Json
+        /// </summary>
+        [EntityDataCheckModel(ColumnDescription = "连接字符串Json", IsNullable = false)]
+        public string ConnectAddress { get; set; }
 
         /// <summary>
         /// 说明
@@ -41,7 +52,7 @@ namespace ATW.MES.Model.DTOs.System.BaseData
 
         /// <summary>
         /// 创建时间
-        /// </summary>
+        /// </summary>        
         public DateTime CreateTime { get; set; }
 
         /// <summary>
@@ -51,9 +62,9 @@ namespace ATW.MES.Model.DTOs.System.BaseData
 
         /// <summary>
         /// 备注
-        /// </summary>        
+        /// </summary>  
+        [EntityDataCheckModel(ColumnDescription = "备注", IsNullable = true)]
         public string Remark { get; set; }
-
 
     }
 }

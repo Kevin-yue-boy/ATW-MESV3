@@ -36,17 +36,17 @@ namespace ATW.MES.BLL.System.BaseData
         /// <summary>
         /// 添加单位信息
         /// </summary>
-        /// <param name="baseUnitResponse">单位信息</param>
+        /// <param name="baseUnitDTO">单位信息</param>
         /// <param name="responseModel">反馈添加结果</param>
         /// <returns></returns>
-        public async Task Insert(BaseUnitResponse baseUnitResponse, ResponseModel responseModel)
+        public async Task Insert(BaseUnitDTO baseUnitDTO, ResponseModel responseModel)
         {
             try
             {
                 #region 校验实体 生成日志
 
                 string msg_log = "";
-                responseModel.Result = EntityDataCheck.CheckEntity(baseUnitResponse, false, out msg_log);
+                responseModel.Result = EntityDataCheck.CheckEntity(baseUnitDTO, false, out msg_log);
                 responseModel.Msg = msg_log;
                 if (!responseModel.Result) { return; }
 
@@ -57,23 +57,23 @@ namespace ATW.MES.BLL.System.BaseData
                 var baseUnitResponses = await BaseUnitDAL.Get();
 
                 // 校验单位名称是否重复
-                var exist_UnitName = baseUnitResponses.Exists(it => { return it.UnitName == baseUnitResponse.UnitName; });
+                var exist_UnitName = baseUnitResponses.Exists(it => { return it.UnitName == baseUnitDTO.UnitName; });
                 if (exist_UnitName)
                 {
                     responseModel.Result = false;
-                    responseModel.Msg = $"单位名称:{baseUnitResponse.UnitName}已存在！";
+                    responseModel.Msg = $"单位名称:{baseUnitDTO.UnitName}已存在！";
                     return;
                 }
 
                 #endregion
 
                 // 初始化基础字段
-                baseUnitResponse.GUID = Guid.NewGuid();
-                baseUnitResponse.LastEditTime = DateTime.Now;
-                baseUnitResponse.CreateTime = DateTime.Now;
+                baseUnitDTO.GUID = Guid.NewGuid();
+                baseUnitDTO.LastEditTime = DateTime.Now;
+                baseUnitDTO.CreateTime = DateTime.Now;
 
                 // 执行新增并返回结果
-                responseModel.Result = (await BaseUnitDAL.Insert(baseUnitResponse)) == 1;
+                responseModel.Result = (await BaseUnitDAL.Insert(baseUnitDTO)) == 1;
                 responseModel.Msg += responseModel.Result ? "添加成功！" : "添加失败！";
             }
             catch (Exception ex)
@@ -90,19 +90,19 @@ namespace ATW.MES.BLL.System.BaseData
         /// <summary>
         /// 编辑单位信息
         /// </summary>
-        /// <param name="baseUnitResponse">单位信息（新值）</param>
-        /// <param name="baseUnitResponse_Old">单位信息（原始数据）</param>
+        /// <param name="baseUnitDTO">单位信息（新值）</param>
+        /// <param name="baseUnitDTO_Old">单位信息（原始数据）</param>
         /// <param name="responseModel">反馈编辑结果</param>
         /// <returns></returns>
-        public async Task Edit(BaseUnitResponse baseUnitResponse,
-            BaseUnitResponse baseUnitResponse_Old, ResponseModel responseModel)
+        public async Task Edit(BaseUnitDTO baseUnitDTO,
+            BaseUnitDTO baseUnitDTO_Old, ResponseModel responseModel)
         {
             try
             {
                 #region 校验实体 生成日志
 
                 string msg_log = "";
-                responseModel.Result = EntityDataCheck.CheckEntity(baseUnitResponse, baseUnitResponse_Old, out msg_log);
+                responseModel.Result = EntityDataCheck.CheckEntity(baseUnitDTO, baseUnitDTO_Old, out msg_log);
                 responseModel.Msg = msg_log;
                 if (!responseModel.Result) { return; }
 
@@ -114,23 +114,23 @@ namespace ATW.MES.BLL.System.BaseData
 
                 // 校验单位名称是否重复（排除自身）
                 var exist_UnitName = baseUnitResponses.Exists(it => {
-                    return it.UnitName == baseUnitResponse.UnitName
-                    && it.GUID != baseUnitResponse_Old.GUID;
+                    return it.UnitName == baseUnitDTO.UnitName
+                    && it.GUID != baseUnitDTO_Old.GUID;
                 });
                 if (exist_UnitName)
                 {
                     responseModel.Result = false;
-                    responseModel.Msg = $"单位名称:{baseUnitResponse.UnitName}已存在！";
+                    responseModel.Msg = $"单位名称:{baseUnitDTO.UnitName}已存在！";
                     return;
                 }
 
                 #endregion
 
                 // 更新最后编辑时间
-                baseUnitResponse.LastEditTime = DateTime.Now;
+                baseUnitDTO.LastEditTime = DateTime.Now;
 
                 // 执行编辑并返回结果
-                responseModel.Result = (await BaseUnitDAL.Edit(baseUnitResponse)) == 1;
+                responseModel.Result = (await BaseUnitDAL.Edit(baseUnitDTO)) == 1;
                 responseModel.Msg += responseModel.Result ? "编辑成功！" : "编辑失败！";
             }
             catch (Exception ex)
@@ -147,17 +147,17 @@ namespace ATW.MES.BLL.System.BaseData
         /// <summary>
         /// 删除单位信息
         /// </summary>
-        /// <param name="baseUnitResponse">单位信息</param>
+        /// <param name="baseUnitDTO">单位信息</param>
         /// <param name="responseModel">反馈删除结果</param>
         /// <returns></returns>
-        public async Task Delete(BaseUnitResponse baseUnitResponse, ResponseModel responseModel)
+        public async Task Delete(BaseUnitDTO baseUnitDTO, ResponseModel responseModel)
         {
             try
             {
                 #region 校验实体 生成日志
 
                 string msg_log = "";
-                responseModel.Result = EntityDataCheck.CheckEntity(baseUnitResponse, true, out msg_log);
+                responseModel.Result = EntityDataCheck.CheckEntity(baseUnitDTO, true, out msg_log);
                 responseModel.Msg = msg_log;
                 if (!responseModel.Result) { return; }
 
@@ -168,19 +168,19 @@ namespace ATW.MES.BLL.System.BaseData
                 var baseUnitResponses = await BaseUnitDAL.Get();
 
                 var exist = baseUnitResponses.Exists(it => {
-                    return it.GUID == baseUnitResponse.GUID;
+                    return it.GUID == baseUnitDTO.GUID;
                 });
                 if (!exist)
                 {
                     responseModel.Result = false;
-                    responseModel.Msg = $"单位名称:{baseUnitResponse.UnitName}不存在！";
+                    responseModel.Msg = $"单位名称:{baseUnitDTO.UnitName}不存在！";
                     return;
                 }
 
                 #endregion
 
                 // 执行删除并返回结果
-                responseModel.Result = (await BaseUnitDAL.Delete(baseUnitResponse)) == 1;
+                responseModel.Result = (await BaseUnitDAL.Delete(baseUnitDTO)) == 1;
                 responseModel.Msg += responseModel.Result ? "删除成功！" : "删除失败！";
             }
             catch (Exception ex)
@@ -199,7 +199,7 @@ namespace ATW.MES.BLL.System.BaseData
         /// </summary>
         /// <param name="pagingQueryRequest">分页查询条件</param>
         /// <returns>分页后的单位信息列表</returns>
-        public async Task<List<BaseUnitResponse>> PagingQueryAsync(PagingQueryRequestModel pagingQueryRequest)
+        public async Task<List<BaseUnitDTO>> PagingQueryAsync(PagingQueryRequestModel pagingQueryRequest)
         {
             return await BaseUnitDAL.PagingQueryAsync(pagingQueryRequest);
         }

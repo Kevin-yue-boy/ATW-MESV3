@@ -8,35 +8,36 @@ using System.Threading.Tasks;
 
 namespace ATW.MES.Model.DTOs.System.BaseData
 {
-    public class BaseWorkTypeResponse
+    public class BaseUnitDTO
     {
 
+        [SugarColumn(IsPrimaryKey = true, IsIdentity = true)]
         public int Id { get; set; }
 
+        [SugarColumn(IsNullable = false, ColumnDescription = "GUID")]
         public Guid GUID { get; set; }
 
         /// <summary>
-        /// 工作类型名称
+        /// 单位类型
         /// </summary>
-        [EntityDataCheckModel(ColumnDescription = "工作类型名称", IsNullable = false)]
-        public string WorkTypeName { get; set; }
+        [EntityDataCheckModel(ColumnDescription = "单位类型", IsNullable = false)]
+        public string UnitType { get; set; }
 
         /// <summary>
-        /// 工作类型编码
+        /// 单位名称
         /// </summary>
-        [EntityDataCheckModel(ColumnDescription = "工作类型编码", IsNullable = false)]
-        public string WorkTypeCode { get; set; }
+        [EntityDataCheckModel(ColumnDescription = "单位名称", IsNullable = false)]
+        public string UnitName { get; set; }
 
         /// <summary>
-        /// 启用
+        /// 换算符
         /// </summary>
-        [EntityDataCheckModel(ColumnDescription = "启用", IsNullable = false)]
-        public bool Enable { get; set; }
+        [EntityDataCheckModel(ColumnDescription = "换算符", IsNullable = false)]
+        public long UnitConversion { get; set; }
 
         /// <summary>
         /// 说明
         /// </summary>
-        [EntityDataCheckModel(ColumnDescription = "说明", IsNullable = true)]
         public string Explain { get; set; }
 
         /// <summary>

@@ -36,17 +36,17 @@ namespace ATW.MES.BLL.System.BaseData
         /// <summary>
         /// 添加产品类型信息
         /// </summary>
-        /// <param name="baseProductTypeResponse">产品类型信息</param>
+        /// <param name="baseProductTypeDTO">产品类型信息</param>
         /// <param name="responseModel">反馈添加结果</param>
         /// <returns></returns>
-        public async Task Insert(BaseProductTypeResponse baseProductTypeResponse, ResponseModel responseModel)
+        public async Task Insert(BaseProductTypeDTO baseProductTypeDTO, ResponseModel responseModel)
         {
             try
             {
                 #region 校验实体 生成日志
 
                 string msg_log = "";
-                responseModel.Result = EntityDataCheck.CheckEntity(baseProductTypeResponse, false, out msg_log);
+                responseModel.Result = EntityDataCheck.CheckEntity(baseProductTypeDTO, false, out msg_log);
                 responseModel.Msg = msg_log;
                 if (!responseModel.Result) { return; }
 
@@ -57,32 +57,32 @@ namespace ATW.MES.BLL.System.BaseData
                 var baseProductTypeResponses = await BaseProductTypeDAL.Get();
 
                 // 校验产品类型名称是否重复
-                var exist_ProductTypeName = baseProductTypeResponses.Exists(it => { return it.ProductTypeName == baseProductTypeResponse.ProductTypeName; });
+                var exist_ProductTypeName = baseProductTypeResponses.Exists(it => { return it.ProductTypeName == baseProductTypeDTO.ProductTypeName; });
                 if (exist_ProductTypeName)
                 {
                     responseModel.Result = false;
-                    responseModel.Msg = $"产品类型名称:{baseProductTypeResponse.ProductTypeName}已存在！";
+                    responseModel.Msg = $"产品类型名称:{baseProductTypeDTO.ProductTypeName}已存在！";
                     return;
                 }
 
                 // 校验产品类型编码是否重复
-                var exist_ProductTypeCode = baseProductTypeResponses.Exists(it => { return it.ProductTypeCode == baseProductTypeResponse.ProductTypeCode; });
+                var exist_ProductTypeCode = baseProductTypeResponses.Exists(it => { return it.ProductTypeCode == baseProductTypeDTO.ProductTypeCode; });
                 if (exist_ProductTypeCode)
                 {
                     responseModel.Result = false;
-                    responseModel.Msg = $"产品类型编码:{baseProductTypeResponse.ProductTypeCode}已存在！";
+                    responseModel.Msg = $"产品类型编码:{baseProductTypeDTO.ProductTypeCode}已存在！";
                     return;
                 }
 
                 #endregion
 
                 // 初始化基础字段
-                baseProductTypeResponse.GUID = Guid.NewGuid();
-                baseProductTypeResponse.LastEditTime = DateTime.Now;
-                baseProductTypeResponse.CreateTime = DateTime.Now;
+                baseProductTypeDTO.GUID = Guid.NewGuid();
+                baseProductTypeDTO.LastEditTime = DateTime.Now;
+                baseProductTypeDTO.CreateTime = DateTime.Now;
 
                 // 执行新增并返回结果
-                responseModel.Result = (await BaseProductTypeDAL.Insert(baseProductTypeResponse)) == 1;
+                responseModel.Result = (await BaseProductTypeDAL.Insert(baseProductTypeDTO)) == 1;
                 responseModel.Msg += responseModel.Result ? "添加成功！" : "添加失败！";
             }
             catch (Exception ex)
@@ -99,19 +99,19 @@ namespace ATW.MES.BLL.System.BaseData
         /// <summary>
         /// 编辑产品类型信息
         /// </summary>
-        /// <param name="baseProductTypeResponse">产品类型信息（新值）</param>
-        /// <param name="baseProductTypeResponse_Old">产品类型信息（原始数据）</param>
+        /// <param name="baseProductTypeDTO">产品类型信息（新值）</param>
+        /// <param name="baseProductTypeDTO_Old">产品类型信息（原始数据）</param>
         /// <param name="responseModel">反馈编辑结果</param>
         /// <returns></returns>
-        public async Task Edit(BaseProductTypeResponse baseProductTypeResponse,
-            BaseProductTypeResponse baseProductTypeResponse_Old, ResponseModel responseModel)
+        public async Task Edit(BaseProductTypeDTO baseProductTypeDTO,
+            BaseProductTypeDTO baseProductTypeDTO_Old, ResponseModel responseModel)
         {
             try
             {
                 #region 校验实体 生成日志
 
                 string msg_log = "";
-                responseModel.Result = EntityDataCheck.CheckEntity(baseProductTypeResponse, baseProductTypeResponse_Old, out msg_log);
+                responseModel.Result = EntityDataCheck.CheckEntity(baseProductTypeDTO, baseProductTypeDTO_Old, out msg_log);
                 responseModel.Msg = msg_log;
                 if (!responseModel.Result) { return; }
 
@@ -123,35 +123,35 @@ namespace ATW.MES.BLL.System.BaseData
 
                 // 校验产品类型名称是否重复（排除自身）
                 var exist_ProductTypeName = baseProductTypeResponses.Exists(it => {
-                    return it.ProductTypeName == baseProductTypeResponse.ProductTypeName
-                    && it.GUID != baseProductTypeResponse_Old.GUID;
+                    return it.ProductTypeName == baseProductTypeDTO.ProductTypeName
+                    && it.GUID != baseProductTypeDTO_Old.GUID;
                 });
                 if (exist_ProductTypeName)
                 {
                     responseModel.Result = false;
-                    responseModel.Msg = $"产品类型名称:{baseProductTypeResponse.ProductTypeName}已存在！";
+                    responseModel.Msg = $"产品类型名称:{baseProductTypeDTO.ProductTypeName}已存在！";
                     return;
                 }
 
                 // 校验产品类型编码是否重复（排除自身）
                 var exist_ProductTypeCode = baseProductTypeResponses.Exists(it => {
-                    return it.ProductTypeCode == baseProductTypeResponse.ProductTypeCode
-                    && it.GUID != baseProductTypeResponse_Old.GUID;
+                    return it.ProductTypeCode == baseProductTypeDTO.ProductTypeCode
+                    && it.GUID != baseProductTypeDTO_Old.GUID;
                 });
                 if (exist_ProductTypeCode)
                 {
                     responseModel.Result = false;
-                    responseModel.Msg = $"产品类型编码:{baseProductTypeResponse.ProductTypeCode}已存在！";
+                    responseModel.Msg = $"产品类型编码:{baseProductTypeDTO.ProductTypeCode}已存在！";
                     return;
                 }
 
                 #endregion
 
                 // 更新最后编辑时间
-                baseProductTypeResponse.LastEditTime = DateTime.Now;
+                baseProductTypeDTO.LastEditTime = DateTime.Now;
 
                 // 执行编辑并返回结果
-                responseModel.Result = (await BaseProductTypeDAL.Edit(baseProductTypeResponse)) == 1;
+                responseModel.Result = (await BaseProductTypeDAL.Edit(baseProductTypeDTO)) == 1;
                 responseModel.Msg += responseModel.Result ? "编辑成功！" : "编辑失败！";
             }
             catch (Exception ex)
@@ -168,17 +168,17 @@ namespace ATW.MES.BLL.System.BaseData
         /// <summary>
         /// 删除产品类型信息
         /// </summary>
-        /// <param name="baseProductTypeResponse">产品类型信息</param>
+        /// <param name="baseProductTypeDTO">产品类型信息</param>
         /// <param name="responseModel">反馈删除结果</param>
         /// <returns></returns>
-        public async Task Delete(BaseProductTypeResponse baseProductTypeResponse, ResponseModel responseModel)
+        public async Task Delete(BaseProductTypeDTO baseProductTypeDTO, ResponseModel responseModel)
         {
             try
             {
                 #region 校验实体 生成日志
 
                 string msg_log = "";
-                responseModel.Result = EntityDataCheck.CheckEntity(baseProductTypeResponse, true, out msg_log);
+                responseModel.Result = EntityDataCheck.CheckEntity(baseProductTypeDTO, true, out msg_log);
                 responseModel.Msg = msg_log;
                 if (!responseModel.Result) { return; }
 
@@ -189,19 +189,19 @@ namespace ATW.MES.BLL.System.BaseData
                 var baseProductTypeResponses = await BaseProductTypeDAL.Get();
 
                 var exist = baseProductTypeResponses.Exists(it => {
-                    return it.GUID == baseProductTypeResponse.GUID;
+                    return it.GUID == baseProductTypeDTO.GUID;
                 });
                 if (!exist)
                 {
                     responseModel.Result = false;
-                    responseModel.Msg = $"产品类型名称:{baseProductTypeResponse.ProductTypeName}不存在！";
+                    responseModel.Msg = $"产品类型名称:{baseProductTypeDTO.ProductTypeName}不存在！";
                     return;
                 }
 
                 #endregion
 
                 // 执行删除并返回结果
-                responseModel.Result = (await BaseProductTypeDAL.Delete(baseProductTypeResponse)) == 1;
+                responseModel.Result = (await BaseProductTypeDAL.Delete(baseProductTypeDTO)) == 1;
                 responseModel.Msg += responseModel.Result ? "删除成功！" : "删除失败！";
             }
             catch (Exception ex)
@@ -220,7 +220,7 @@ namespace ATW.MES.BLL.System.BaseData
         /// </summary>
         /// <param name="pagingQueryRequest">分页查询条件</param>
         /// <returns>分页后的产品类型信息列表</returns>
-        public async Task<List<BaseProductTypeResponse>> PagingQueryAsync(PagingQueryRequestModel pagingQueryRequest)
+        public async Task<List<BaseProductTypeDTO>> PagingQueryAsync(PagingQueryRequestModel pagingQueryRequest)
         {
             return await BaseProductTypeDAL.PagingQueryAsync(pagingQueryRequest);
         }

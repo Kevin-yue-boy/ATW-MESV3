@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace ATW.MES.Client.ViewModels.System.BaseData
 {
-    public partial class BaseProcessViewModel : ViewModelBaseMethod<BaseProcessResponse>
+    public partial class BaseProcessViewModel : ViewModelBaseMethod<BaseProcessDTO>
     {
 
         #region Parameter
@@ -74,7 +74,7 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
             {
                 // 空判断，按工序名称模糊查询（保持和示例一致的查询逻辑）
                 PagingQueryRequest.Predicate = string.IsNullOrWhiteSpace(Search) ? null :
-                  (Func<BaseProcessResponse, bool>)(it => it.ProcessName.Contains(Search));
+                  (Func<BaseProcessDTO, bool>)(it => it.ProcessName.Contains(Search));
                 PagingQueryRequest.PageIndex = 1; // 查询结果重置到第一页
                 await PagingQueryAsync(PagingQueryRequest);
                 //Microsoft.Win32.SaveFileDialog dialog = new Microsoft.Win32.SaveFileDialog();
@@ -215,7 +215,7 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
                     // 删除成功后刷新分页数据
                     await PagingQueryAsync(PagingQueryRequest);
                     // 清空旧模型
-                    Model_Old = new BaseProcessResponse();
+                    Model_Old = new BaseProcessDTO();
                 }
                 // 提示操作结果
                 MessageBox.Show(responseModel.Msg);

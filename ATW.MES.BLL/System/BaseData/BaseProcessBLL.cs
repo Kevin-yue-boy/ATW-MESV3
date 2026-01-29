@@ -37,17 +37,17 @@ namespace ATW.MES.BLL.System.BaseData
         /// <summary>
         /// 添加工序信息
         /// </summary>
-        /// <param name="baseProcessResponse">工序信息</param>
+        /// <param name="baseProcessDTO">工序信息</param>
         /// <param name="responseModel">反馈添加结果</param>
         /// <returns></returns>
-        public async Task Insert(BaseProcessResponse baseProcessResponse, ResponseModel responseModel)
+        public async Task Insert(BaseProcessDTO baseProcessDTO, ResponseModel responseModel)
         {
             try
             {
                 #region 校验实体 生成日志
 
                 string msg_log = "";
-                responseModel.Result = EntityDataCheck.CheckEntity(baseProcessResponse, false, out msg_log);
+                responseModel.Result = EntityDataCheck.CheckEntity(baseProcessDTO, false, out msg_log);
                 responseModel.Msg = msg_log;
                 if (!responseModel.Result) { return; }
 
@@ -58,32 +58,32 @@ namespace ATW.MES.BLL.System.BaseData
                 var baseProcessResponses = await BaseProcessDAL.Get();
 
                 // 校验工序名称是否重复
-                var exist_ProcessName = baseProcessResponses.Exists(it => { return it.ProcessName == baseProcessResponse.ProcessName; });
+                var exist_ProcessName = baseProcessResponses.Exists(it => { return it.ProcessName == baseProcessDTO.ProcessName; });
                 if (exist_ProcessName)
                 {
                     responseModel.Result = false;
-                    responseModel.Msg = $"工序名称:{baseProcessResponse.ProcessName}已存在！";
+                    responseModel.Msg = $"工序名称:{baseProcessDTO.ProcessName}已存在！";
                     return;
                 }
 
                 // 校验工序编码是否重复
-                var exist_ProcessCode = baseProcessResponses.Exists(it => { return it.ProcessCode == baseProcessResponse.ProcessCode; });
+                var exist_ProcessCode = baseProcessResponses.Exists(it => { return it.ProcessCode == baseProcessDTO.ProcessCode; });
                 if (exist_ProcessCode)
                 {
                     responseModel.Result = false;
-                    responseModel.Msg = $"工序编码:{baseProcessResponse.ProcessCode}已存在！";
+                    responseModel.Msg = $"工序编码:{baseProcessDTO.ProcessCode}已存在！";
                     return;
                 }
 
                 #endregion
 
                 // 初始化基础字段
-                baseProcessResponse.GUID = Guid.NewGuid();
-                baseProcessResponse.LastEditTime = DateTime.Now;
-                baseProcessResponse.CreateTime = DateTime.Now;
+                baseProcessDTO.GUID = Guid.NewGuid();
+                baseProcessDTO.LastEditTime = DateTime.Now;
+                baseProcessDTO.CreateTime = DateTime.Now;
 
                 // 执行新增并返回结果
-                responseModel.Result = (await BaseProcessDAL.Insert(baseProcessResponse)) == 1;
+                responseModel.Result = (await BaseProcessDAL.Insert(baseProcessDTO)) == 1;
                 responseModel.Msg += responseModel.Result ? "添加成功！" : "添加失败！";
             }
             catch (Exception ex)
@@ -100,19 +100,19 @@ namespace ATW.MES.BLL.System.BaseData
         /// <summary>
         /// 编辑工序信息
         /// </summary>
-        /// <param name="baseProcessResponse">工序信息（新值）</param>
-        /// <param name="baseProcessResponse_Old">工序信息（原始数据）</param>
+        /// <param name="baseProcessDTO">工序信息（新值）</param>
+        /// <param name="baseProcessDTO_Old">工序信息（原始数据）</param>
         /// <param name="responseModel">反馈编辑结果</param>
         /// <returns></returns>
-        public async Task Edit(BaseProcessResponse baseProcessResponse,
-            BaseProcessResponse baseProcessResponse_Old, ResponseModel responseModel)
+        public async Task Edit(BaseProcessDTO baseProcessDTO,
+            BaseProcessDTO baseProcessDTO_Old, ResponseModel responseModel)
         {
             try
             {
                 #region 校验实体 生成日志
 
                 string msg_log = "";
-                responseModel.Result = EntityDataCheck.CheckEntity(baseProcessResponse, baseProcessResponse_Old, out msg_log);
+                responseModel.Result = EntityDataCheck.CheckEntity(baseProcessDTO, baseProcessDTO_Old, out msg_log);
                 responseModel.Msg = msg_log;
                 if (!responseModel.Result) { return; }
 
@@ -124,35 +124,35 @@ namespace ATW.MES.BLL.System.BaseData
 
                 // 校验工序名称是否重复（排除自身）
                 var exist_ProcessName = baseProcessResponses.Exists(it => {
-                    return it.ProcessName == baseProcessResponse.ProcessName
-                    && it.GUID != baseProcessResponse_Old.GUID;
+                    return it.ProcessName == baseProcessDTO.ProcessName
+                    && it.GUID != baseProcessDTO_Old.GUID;
                 });
                 if (exist_ProcessName)
                 {
                     responseModel.Result = false;
-                    responseModel.Msg = $"工序名称:{baseProcessResponse.ProcessName}已存在！";
+                    responseModel.Msg = $"工序名称:{baseProcessDTO.ProcessName}已存在！";
                     return;
                 }
 
                 // 校验工序编码是否重复（排除自身）
                 var exist_ProcessCode = baseProcessResponses.Exists(it => {
-                    return it.ProcessCode == baseProcessResponse.ProcessCode
-                    && it.GUID != baseProcessResponse_Old.GUID;
+                    return it.ProcessCode == baseProcessDTO.ProcessCode
+                    && it.GUID != baseProcessDTO_Old.GUID;
                 });
                 if (exist_ProcessCode)
                 {
                     responseModel.Result = false;
-                    responseModel.Msg = $"工序编码:{baseProcessResponse.ProcessCode}已存在！";
+                    responseModel.Msg = $"工序编码:{baseProcessDTO.ProcessCode}已存在！";
                     return;
                 }
 
                 #endregion
 
                 // 更新最后编辑时间
-                baseProcessResponse.LastEditTime = DateTime.Now;
+                baseProcessDTO.LastEditTime = DateTime.Now;
 
                 // 执行编辑并返回结果
-                responseModel.Result = (await BaseProcessDAL.Edit(baseProcessResponse)) == 1;
+                responseModel.Result = (await BaseProcessDAL.Edit(baseProcessDTO)) == 1;
                 responseModel.Msg += responseModel.Result ? "编辑成功！" : "编辑失败！";
             }
             catch (Exception ex)
@@ -169,17 +169,17 @@ namespace ATW.MES.BLL.System.BaseData
         /// <summary>
         /// 删除工序信息
         /// </summary>
-        /// <param name="baseProcessResponse">工序信息</param>
+        /// <param name="baseProcessDTO">工序信息</param>
         /// <param name="responseModel">反馈删除结果</param>
         /// <returns></returns>
-        public async Task Delete(BaseProcessResponse baseProcessResponse, ResponseModel responseModel)
+        public async Task Delete(BaseProcessDTO baseProcessDTO, ResponseModel responseModel)
         {
             try
             {
                 #region 校验实体 生成日志
 
                 string msg_log = "";
-                responseModel.Result = EntityDataCheck.CheckEntity(baseProcessResponse, true, out msg_log);
+                responseModel.Result = EntityDataCheck.CheckEntity(baseProcessDTO, true, out msg_log);
                 responseModel.Msg = msg_log;
                 if (!responseModel.Result) { return; }
 
@@ -191,19 +191,19 @@ namespace ATW.MES.BLL.System.BaseData
 
                 // 修复示例中存在的逻辑错误：原逻辑判断GUID != 目标GUID，此处修正为 == 来校验数据是否存在
                 var exist = baseProcessResponses.Exists(it => {
-                    return it.GUID == baseProcessResponse.GUID;
+                    return it.GUID == baseProcessDTO.GUID;
                 });
                 if (!exist)
                 {
                     responseModel.Result = false;
-                    responseModel.Msg = $"工序名称:{baseProcessResponse.ProcessName}不存在！";
+                    responseModel.Msg = $"工序名称:{baseProcessDTO.ProcessName}不存在！";
                     return;
                 }
 
                 #endregion
 
                 // 执行删除并返回结果
-                responseModel.Result = (await BaseProcessDAL.Delete(baseProcessResponse)) == 1;
+                responseModel.Result = (await BaseProcessDAL.Delete(baseProcessDTO)) == 1;
                 responseModel.Msg += responseModel.Result ? "删除成功！" : "删除失败！";
             }
             catch (Exception ex)
@@ -222,7 +222,7 @@ namespace ATW.MES.BLL.System.BaseData
         /// </summary>
         /// <param name="pagingQueryRequest">分页查询条件</param>
         /// <returns>分页后的工序信息列表</returns>
-        public async Task<List<BaseProcessResponse>> PagingQueryAsync(PagingQueryRequestModel pagingQueryRequest)
+        public async Task<List<BaseProcessDTO>> PagingQueryAsync(PagingQueryRequestModel pagingQueryRequest)
         {
             return await BaseProcessDAL.PagingQueryAsync(pagingQueryRequest);
         }

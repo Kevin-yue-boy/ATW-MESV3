@@ -42,12 +42,12 @@ namespace ATW.MES.DAL.Process.ProcessRoute
         /// </summary>
         /// <param name="processRouteName">工艺路线名称</param>
         /// <returns></returns>
-        public async Task<ProcessRouteBaseResponse> GetByProcessRouteName(string processRouteName)
+        public async Task<ProcessRouteBaseDTO> GetByProcessRouteName(string processRouteName)
         {
-            ProcessRouteBaseResponse processRouteBaseResponse = new ProcessRouteBaseResponse();
+            ProcessRouteBaseDTO processRouteBaseDTO = new ProcessRouteBaseDTO();
             var processRouteBase = await CUSR.GetFirstAsync<ProcessRouteBaseEntity>(it => it.ProcessRouteName == processRouteName);
-            processRouteBaseResponse = IM.Map<ProcessRouteBaseResponse>(processRouteBase);
-            return processRouteBaseResponse;
+            processRouteBaseDTO = IM.Map<ProcessRouteBaseDTO>(processRouteBase);
+            return processRouteBaseDTO;
         }
 
         #endregion
@@ -59,12 +59,12 @@ namespace ATW.MES.DAL.Process.ProcessRoute
         /// </summary>
         /// <param name="processRouteName">工艺路线名称</param>
         /// <returns></returns>
-        public async Task<ProcessRouteBaseResponse> GetByProcessRouteGUID(Guid processRouteGUID)
+        public async Task<ProcessRouteBaseDTO> GetByProcessRouteGUID(Guid processRouteGUID)
         {
-            ProcessRouteBaseResponse processRouteBaseResponse = new ProcessRouteBaseResponse();
+            ProcessRouteBaseDTO processRouteBaseDTO = new ProcessRouteBaseDTO();
             var processRouteBase = await CUSR.GetFirstAsync<ProcessRouteBaseEntity>(it => it.GUID == processRouteGUID);
-            processRouteBaseResponse = IM.Map<ProcessRouteBaseResponse>(processRouteBase);
-            return processRouteBaseResponse;
+            processRouteBaseDTO = IM.Map<ProcessRouteBaseDTO>(processRouteBase);
+            return processRouteBaseDTO;
         }
 
         #endregion

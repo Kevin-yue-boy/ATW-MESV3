@@ -114,7 +114,5 @@ namespace ATW.MES.BLL.System.Log
 
         #endregion
 
-
-
     }
 }

@@ -1,5 +1,4 @@
 using ATW.CommonBase.DataAccess.Common;
-using ATW.CommonBase.Method.ViewModel;
 using ATW.CommonBase.Model.DataAccess;
 using ATW.MES.Model.DTOs.System.BaseData;
 using ATW.MES.Model.Entitys.System.BaseData;
@@ -13,19 +12,18 @@ using System.Threading.Tasks;
 
 namespace ATW.MES.DAL.System.BaseData
 {
-
-    public class BaseWorkTypeDAL: CacheUniteSqlSugarContext<BaseWorkTypeDTO, BaseWorkTypeEntity>
+    public class BaseToolTypeDAL : CacheUniteSqlSugarContext<BaseToolTypeDTO, BaseToolTypeEntity>
     {
 
         #region Parameter
 
- 
+
 
         #endregion
 
         #region 构造函数
 
-        public BaseWorkTypeDAL(ISqlSugarClient sqlSugarClient, CacheUniteSqlSugarRepository cUSR, IMapper iM)
+        public BaseToolTypeDAL(ISqlSugarClient sqlSugarClient, CacheUniteSqlSugarRepository cUSR, IMapper iM)
         {
             IM = iM;
             DB = sqlSugarClient.AsTenant().GetConnectionScope("MainDB");
@@ -33,7 +31,6 @@ namespace ATW.MES.DAL.System.BaseData
         }
 
         #endregion
-                
 
     }
 }

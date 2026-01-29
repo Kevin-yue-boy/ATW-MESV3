@@ -8,36 +8,41 @@ using System.Threading.Tasks;
 
 namespace ATW.MES.Model.DTOs.System.BaseData
 {
-    public class BaseUnitResponse
+    public class BaseToolTypeDTO
     {
 
-        [SugarColumn(IsPrimaryKey = true, IsIdentity = true)]
         public int Id { get; set; }
 
-        [SugarColumn(IsNullable = false, ColumnDescription = "GUID")]
         public Guid GUID { get; set; }
 
         /// <summary>
-        /// 单位类型
+        /// 工作类型名称
         /// </summary>
-        [EntityDataCheckModel(ColumnDescription = "单位类型", IsNullable = false)]
-        public string UnitType { get; set; }
+        [EntityDataCheckModel(ColumnDescription = "工作类型名称", IsNullable = false)]
+        public string WorkTypeName { get; set; }
 
         /// <summary>
-        /// 单位名称
+        /// 工具类型名称
         /// </summary>
-        [EntityDataCheckModel(ColumnDescription = "单位名称", IsNullable = false)]
-        public string UnitName { get; set; }
+        [EntityDataCheckModel(ColumnDescription = "工具类型名称", IsNullable = false)]
+        public string ToolTypeName { get; set; }
 
         /// <summary>
-        /// 换算符
+        /// 工具类型编码
         /// </summary>
-        [EntityDataCheckModel(ColumnDescription = "换算符", IsNullable = false)]
-        public long UnitConversion { get; set; }
+        [EntityDataCheckModel(ColumnDescription = "工具类型编码", IsNullable = false)]
+        public string ToolTypeCode { get; set; }
+
+        /// <summary>
+        /// 启用
+        /// </summary>
+        [EntityDataCheckModel(ColumnDescription = "启用", IsNullable = false)]
+        public bool Enable { get; set; }
 
         /// <summary>
         /// 说明
         /// </summary>
+        [EntityDataCheckModel(ColumnDescription = "说明", IsNullable = true)]
         public string Explain { get; set; }
 
         /// <summary>

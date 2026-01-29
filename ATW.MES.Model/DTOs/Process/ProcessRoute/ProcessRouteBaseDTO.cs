@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ATW.MES.Model.DTOs.Process.ProcessRoute
 {
-    public class ProcessRouteBaseResponse
+    public class ProcessRouteBaseDTO
     {
         public int Id { get; set; }
 

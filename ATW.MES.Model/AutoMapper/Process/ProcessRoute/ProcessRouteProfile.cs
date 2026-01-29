@@ -14,14 +14,14 @@ namespace ATW.MES.Model.AutoMapper.Process.ProcessRoute
 
         public ProcessRouteProfile()
         {
-            CreateMap<ProcessRouteEntity, ProcessRouteResponse>()
+
+            CreateMap<ProcessRouteEntity, ProcessRouteDTO>()
                 .ForMember(d => d.ProcessName, opt =>
                 {
                     opt.MapFrom(s => s.BaseProcessGUID);
                 });
 
-            CreateMap<ProcessRouteBaseEntity, ProcessRouteBaseResponse>();
-
+            CreateMap<ProcessRouteBaseEntity, ProcessRouteBaseDTO>();
 
         }
 

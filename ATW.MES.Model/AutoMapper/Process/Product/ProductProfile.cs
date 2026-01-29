@@ -17,8 +17,8 @@ namespace ATW.MES.Model.AutoMapper.Process.Product
         public ProductProfile()
         {
 
-            CreateMap<ProductEntity, ProductResponse>();
-            CreateMap<ProductResponse, ProductEntity>();
+            CreateMap<ProductEntity, ProductDTO>();
+            CreateMap<ProductDTO, ProductEntity>();
 
         }
 

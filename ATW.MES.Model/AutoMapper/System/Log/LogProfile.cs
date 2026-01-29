@@ -16,8 +16,8 @@ namespace ATW.MES.Model.AutoMapper.System.Log
 
         public LogProfile()
         {
-            CreateMap<UserOperateLogEntity, UserOperateLogResponse>();
-            CreateMap<UserOperateLogResponse, UserOperateLogEntity>();
+            CreateMap<UserOperateLogEntity, UserOperateLogDTO>();
+            CreateMap<UserOperateLogDTO, UserOperateLogEntity>();
 
         }
 

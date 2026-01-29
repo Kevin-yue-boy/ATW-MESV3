@@ -49,7 +49,7 @@ namespace ATW.MES.DAL.System.Log
         /// </summary>
         /// <param name="pagingQueryRequest">查询条件实体</param>
         /// <returns></returns>
-        public async Task<List<UserOperateLogResponse>> PagingQueryAsync(PagingQueryRequestModel pagingQueryRequest
+        public async Task<List<UserOperateLogDTO>> PagingQueryAsync(PagingQueryRequestModel pagingQueryRequest
             , string field
             , string value
             , DateTime start
@@ -156,7 +156,7 @@ namespace ATW.MES.DAL.System.Log
 
             #endregion
 
-            return IM.Map<List<UserOperateLogResponse>>(userOperateLogEntitys);
+            return IM.Map<List<UserOperateLogDTO>>(userOperateLogEntitys);
 
         }
 

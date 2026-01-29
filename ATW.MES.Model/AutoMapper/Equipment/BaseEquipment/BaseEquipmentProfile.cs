@@ -17,8 +17,8 @@ namespace ATW.MES.Model.AutoMapper.Equipment.BaseEquipment
         public BaseEquipmentProfile()
         {
 
-            CreateMap<EquipmentCommunicateEntity, EquipmentCommunicateResponse>();
-            CreateMap<EquipmentCommunicateResponse, EquipmentCommunicateEntity>();
+            CreateMap<EquipmentCommunicateEntity, EquipmentCommunicateDTO>();
+            CreateMap<EquipmentCommunicateDTO, EquipmentCommunicateEntity>();
 
         }
     }

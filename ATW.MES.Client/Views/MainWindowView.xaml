@@ -392,12 +392,22 @@
                                         Foreground="Black"
                                         Style="{StaticResource RadioMiniButtonStyle}" />
                                     <RadioButton
-                                        x:Name="LevelThree_BaseJobType"
+                                        x:Name="LevelThree_BaseWorkType"
                                         Margin="0,0,40,0"
                                         HorizontalAlignment="Right"
                                         Command="{Binding NavCommand}"
-                                        CommandParameter="{Binding ElementName=LevelThree_BaseJobType}"
+                                        CommandParameter="{Binding ElementName=LevelThree_BaseWorkType}"
                                         Content="工作类型信息"
+                                        FontSize="18"
+                                        Foreground="Black"
+                                        Style="{StaticResource RadioMiniButtonStyle}" />
+                                    <RadioButton
+                                        x:Name="LevelThree_BaseToolType"
+                                        Margin="0,0,40,0"
+                                        HorizontalAlignment="Right"
+                                        Command="{Binding NavCommand}"
+                                        CommandParameter="{Binding ElementName=LevelThree_BaseToolType}"
+                                        Content="工具类型信息"
                                         FontSize="18"
                                         Foreground="Black"
                                         Style="{StaticResource RadioMiniButtonStyle}" />

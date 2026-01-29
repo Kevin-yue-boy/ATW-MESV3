@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ATW.MES.Model.DTOs.System.BaseData
 {
-    public class BaseProcessResponse
+    public class BaseWorkTypeDTO
     {
 
         public int Id { get; set; }
@@ -16,16 +16,22 @@ namespace ATW.MES.Model.DTOs.System.BaseData
         public Guid GUID { get; set; }
 
         /// <summary>
-        /// 工序名称
+        /// 工作类型名称
         /// </summary>
-        [EntityDataCheckModel(ColumnDescription = "工序名称", IsNullable = false)]
-        public string ProcessName { get; set; }
+        [EntityDataCheckModel(ColumnDescription = "工作类型名称", IsNullable = false)]
+        public string WorkTypeName { get; set; }
 
         /// <summary>
-        /// 工序编码
+        /// 工作类型编码
         /// </summary>
-        [EntityDataCheckModel(ColumnDescription = "工序编码", IsNullable = false)]
-        public string ProcessCode { get; set; }
+        [EntityDataCheckModel(ColumnDescription = "工作类型编码", IsNullable = false)]
+        public string WorkTypeCode { get; set; }
+
+        /// <summary>
+        /// 启用
+        /// </summary>
+        [EntityDataCheckModel(ColumnDescription = "启用", IsNullable = false)]
+        public bool Enable { get; set; }
 
         /// <summary>
         /// 说明
@@ -35,7 +41,7 @@ namespace ATW.MES.Model.DTOs.System.BaseData
 
         /// <summary>
         /// 创建时间
-        /// </summary>
+        /// </summary>        
         public DateTime CreateTime { get; set; }
 
         /// <summary>

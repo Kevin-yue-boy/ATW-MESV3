@@ -53,10 +53,10 @@ namespace ATW.MES.BLL.Equipment.BaseEquipment
         /// <summary>
         /// 添加设备通讯
         /// </summary>
-        /// <param name="equComResponse">通讯信息</param>
+        /// <param name="equComDTO">通讯信息</param>
         /// <param name="responseModel">反馈添加结果</param>
         /// <returns></returns>
-        public async Task Insert(EquipmentCommunicateResponse equComResponse, ResponseModel responseModel)
+        public async Task Insert(EquipmentCommunicateDTO equComDTO, ResponseModel responseModel)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace ATW.MES.BLL.Equipment.BaseEquipment
                 #region 校验实体 生成日志
 
                 string msg_log = "";
-                responseModel.Result = EntityDataCheck.CheckEntity(equComResponse, false, out msg_log);
+                responseModel.Result = EntityDataCheck.CheckEntity(equComDTO, false, out msg_log);
                 responseModel.Msg = msg_log;
                 if (!responseModel.Result) { return; }
 
@@ -75,29 +75,29 @@ namespace ATW.MES.BLL.Equipment.BaseEquipment
                 var equComResponses = await EquComDAL.Get();
 
                 //校验通讯名称是否重复
-                var exist_CommunicateName = equComResponses.Exists(it => { return it.CommunicateName == equComResponse.CommunicateName; });
+                var exist_CommunicateName = equComResponses.Exists(it => { return it.CommunicateName == equComDTO.CommunicateName; });
                 if (exist_CommunicateName)
                 {
                     responseModel.Result = false;
-                    responseModel.Msg = $"通讯名称:{equComResponse.CommunicateName}已存在！";
+                    responseModel.Msg = $"通讯名称:{equComDTO.CommunicateName}已存在！";
                     return;
                 }
 
                 //校验通讯编码是否重复
-                var exist_CommunicateCode = equComResponses.Exists(it => { return it.CommunicateCode == equComResponse.CommunicateCode; });
+                var exist_CommunicateCode = equComResponses.Exists(it => { return it.CommunicateCode == equComDTO.CommunicateCode; });
                 if (exist_CommunicateCode)
                 {
                     responseModel.Result = false;
-                    responseModel.Msg = $"通讯编码:{equComResponse.CommunicateCode}已存在！";
+                    responseModel.Msg = $"通讯编码:{equComDTO.CommunicateCode}已存在！";
                     return;
                 }
 
                 #endregion
 
-                equComResponse.GUID = Guid.NewGuid();
-                equComResponse.LastEditTime = DateTime.Now;
-                equComResponse.CreateTime = DateTime.Now;
-                responseModel.Result = (await EquComDAL.Insert(equComResponse)) == 1;
+                equComDTO.GUID = Guid.NewGuid();
+                equComDTO.LastEditTime = DateTime.Now;
+                equComDTO.CreateTime = DateTime.Now;
+                responseModel.Result = (await EquComDAL.Insert(equComDTO)) == 1;
                 responseModel.Msg += responseModel.Result ? "添加成功！" : "添加失败！";
             }
             catch (Exception ex)
@@ -114,12 +114,12 @@ namespace ATW.MES.BLL.Equipment.BaseEquipment
         /// <summary>
         /// 编辑设备通讯
         /// </summary>
-        /// <param name="equComResponse">通讯信息</param>
-        /// <param name="equComResponse">通讯信息_原始数据</param>
+        /// <param name="equComDTO">通讯信息</param>
+        /// <param name="equComDTO">通讯信息_原始数据</param>
         /// <param name="responseModel">反馈添加结果</param>
         /// <returns></returns>
-        public async Task Edit(EquipmentCommunicateResponse equComResponse,
-            EquipmentCommunicateResponse equComResponse_Old, ResponseModel responseModel)
+        public async Task Edit(EquipmentCommunicateDTO equComDTO,
+            EquipmentCommunicateDTO equComDTO_Old, ResponseModel responseModel)
         {
             try
             {
@@ -127,7 +127,7 @@ namespace ATW.MES.BLL.Equipment.BaseEquipment
                 #region 校验实体 生成日志
 
                 string msg_log = "";
-                responseModel.Result = EntityDataCheck.CheckEntity(equComResponse, equComResponse_Old, out msg_log);
+                responseModel.Result = EntityDataCheck.CheckEntity(equComDTO, equComDTO_Old, out msg_log);
                 responseModel.Msg = msg_log;
                 if (!responseModel.Result) { return; }
 
@@ -139,32 +139,32 @@ namespace ATW.MES.BLL.Equipment.BaseEquipment
 
                 //校验通讯名称是否重复
                 var exist_CommunicateName = equComResponses.Exists(it => {
-                    return it.CommunicateName == equComResponse.CommunicateName
-                    && it.GUID != equComResponse_Old.GUID;
+                    return it.CommunicateName == equComDTO.CommunicateName
+                    && it.GUID != equComDTO_Old.GUID;
                 });
                 if (exist_CommunicateName)
                 {
                     responseModel.Result = false;
-                    responseModel.Msg = $"通讯名称:{equComResponse.CommunicateName}已存在！";
+                    responseModel.Msg = $"通讯名称:{equComDTO.CommunicateName}已存在！";
                     return;
                 }
 
                 //校验通讯编码是否重复
                 var exist_CommunicateCode = equComResponses.Exists(it => {
-                    return it.CommunicateCode == equComResponse.CommunicateCode
-                    && it.GUID != equComResponse_Old.GUID;
+                    return it.CommunicateCode == equComDTO.CommunicateCode
+                    && it.GUID != equComDTO_Old.GUID;
                 });
                 if (exist_CommunicateCode)
                 {
                     responseModel.Result = false;
-                    responseModel.Msg = $"通讯编码:{equComResponse.CommunicateCode}已存在！";
+                    responseModel.Msg = $"通讯编码:{equComDTO.CommunicateCode}已存在！";
                     return;
                 }
 
                 #endregion
 
-                equComResponse.LastEditTime = DateTime.Now;
-                responseModel.Result = (await EquComDAL.Edit(equComResponse)) == 1;
+                equComDTO.LastEditTime = DateTime.Now;
+                responseModel.Result = (await EquComDAL.Edit(equComDTO)) == 1;
                 responseModel.Msg += responseModel.Result ? "编辑成功！" : "编辑失败！";
             }
             catch (Exception ex)
@@ -181,10 +181,10 @@ namespace ATW.MES.BLL.Equipment.BaseEquipment
         /// <summary>
         /// 删除设备通讯
         /// </summary>
-        /// <param name="equComResponse">通讯信息</param>
+        /// <param name="equComDTO">通讯信息</param>
         /// <param name="responseModel">反馈删除结果</param>
         /// <returns></returns>
-        public async Task Delete(EquipmentCommunicateResponse equComResponse, ResponseModel responseModel)
+        public async Task Delete(EquipmentCommunicateDTO equComDTO, ResponseModel responseModel)
         {
             try
             {
@@ -192,7 +192,7 @@ namespace ATW.MES.BLL.Equipment.BaseEquipment
                 #region 校验实体 生成日志
 
                 string msg_log = "";
-                responseModel.Result = EntityDataCheck.CheckEntity(equComResponse,true, out msg_log);
+                responseModel.Result = EntityDataCheck.CheckEntity(equComDTO,true, out msg_log);
                 responseModel.Msg = msg_log;
                 if (!responseModel.Result) { return; }
 
@@ -203,18 +203,18 @@ namespace ATW.MES.BLL.Equipment.BaseEquipment
                 var equComResponses = await EquComDAL.Get();
 
                 var exist = equComResponses.Exists(it => {
-                    return it.GUID != equComResponse.GUID;
+                    return it.GUID != equComDTO.GUID;
                 });
                 if (!exist)
                 {
                     responseModel.Result = false;
-                    responseModel.Msg = $"通讯名称:{equComResponse.CommunicateName}不存在！";
+                    responseModel.Msg = $"通讯名称:{equComDTO.CommunicateName}不存在！";
                     return;
                 }
 
                 #endregion
 
-                responseModel.Result = (await EquComDAL.Delete(equComResponse)) == 1;
+                responseModel.Result = (await EquComDAL.Delete(equComDTO)) == 1;
                 responseModel.Msg += responseModel.Result ? "删除成功！" : "删除失败！";
             }
             catch (Exception ex)
@@ -232,7 +232,7 @@ namespace ATW.MES.BLL.Equipment.BaseEquipment
         /// 分页查询
         /// </summary>
         /// <returns></returns>
-        public async Task<List<EquipmentCommunicateResponse>> PagingQueryAsync(PagingQueryRequestModel pagingQueryRequest)
+        public async Task<List<EquipmentCommunicateDTO>> PagingQueryAsync(PagingQueryRequestModel pagingQueryRequest)
         {
             return await EquComDAL.PagingQueryAsync(pagingQueryRequest);
         }
@@ -264,19 +264,19 @@ namespace ATW.MES.BLL.Equipment.BaseEquipment
         /// 加载设备通讯
         /// </summary>
         /// <returns></returns>
-        public async Task LoadCommunicateAsync(EquipmentCommunicateResponse equipmentCommunicate)
+        public async Task LoadCommunicateAsync(EquipmentCommunicateDTO equipmentCommunicateDTO)
         {
-            if (equipmentCommunicate.Enable && equipmentCommunicate.CommunicateType == "KeyencePLC")
+            if (equipmentCommunicateDTO.Enable && equipmentCommunicateDTO.CommunicateType == "KeyencePLC")
             {
-                var pLCCAModel = Serializer_JsonNet.JsonToObject<PLCConnectAddressModel>(equipmentCommunicate.ConnectAddress);
+                var pLCCAModel = Serializer_JsonNet.JsonToObject<PLCConnectAddressModel>(equipmentCommunicateDTO.ConnectAddress);
                 ICommunicatePLC IPLC = new HSL_Keyence_MC(pLCCAModel.IP, pLCCAModel.Port, pLCCAModel.HeartAddress);
-                IPLCComRepo.SetConnect(IPLC, equipmentCommunicate.GUID);
+                IPLCComRepo.SetConnect(IPLC, equipmentCommunicateDTO.GUID);
             }
-            else if (equipmentCommunicate.Enable && equipmentCommunicate.CommunicateType == "SiemensPLC")
+            else if (equipmentCommunicateDTO.Enable && equipmentCommunicateDTO.CommunicateType == "SiemensPLC")
             {
-                var pLCCAModel = Serializer_JsonNet.JsonToObject<PLCConnectAddressModel>(equipmentCommunicate.ConnectAddress);
+                var pLCCAModel = Serializer_JsonNet.JsonToObject<PLCConnectAddressModel>(equipmentCommunicateDTO.ConnectAddress);
                 ICommunicatePLC IPLC = new HSL_Siemens_S7(pLCCAModel.IP, pLCCAModel.Port, pLCCAModel.HeartAddress);
-                IPLCComRepo.SetConnect(IPLC, equipmentCommunicate.GUID);
+                IPLCComRepo.SetConnect(IPLC, equipmentCommunicateDTO.GUID);
             }
         }
 
