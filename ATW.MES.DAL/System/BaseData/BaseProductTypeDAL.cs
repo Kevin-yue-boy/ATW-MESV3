@@ -17,9 +17,7 @@ namespace ATW.MES.DAL.System.BaseData
 
         #region Parameter
 
-        private ISqlSugarClient DB { get; set; }
-        private CacheUniteSqlSugarRepository CUSR { get; set; }
-        private readonly IMapper IM;
+
 
         #endregion
 

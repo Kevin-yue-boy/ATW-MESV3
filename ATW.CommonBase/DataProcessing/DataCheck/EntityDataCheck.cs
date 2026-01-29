@@ -11,7 +11,6 @@ namespace ATW.CommonBase.DataProcessing.DataCheck
     public static class EntityDataCheck
     {
 
-
         #region 校验实体数据类型 添加&删除
 
         /// <summary>

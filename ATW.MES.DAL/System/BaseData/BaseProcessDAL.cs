@@ -15,8 +15,6 @@ using System.Threading.Tasks;
 namespace ATW.MES.DAL.System.BaseData
 {
 
-
-
     public class BaseProcessDAL : CacheUniteSqlSugarContext<BaseProcessDTO, BaseProcessEntity>
     {
 

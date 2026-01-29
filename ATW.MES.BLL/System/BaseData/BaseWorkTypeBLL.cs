@@ -13,6 +13,7 @@ namespace ATW.MES.BLL.System.BaseData
 {
     public class BaseWorkTypeBLL
     {
+
         #region Parameter
 
         /// <summary>
@@ -108,6 +109,7 @@ namespace ATW.MES.BLL.System.BaseData
         {
             try
             {
+
                 #region 校验实体 生成日志
 
                 string msg_log = "";
@@ -239,5 +241,6 @@ namespace ATW.MES.BLL.System.BaseData
         }
 
         #endregion
+
     }
 }

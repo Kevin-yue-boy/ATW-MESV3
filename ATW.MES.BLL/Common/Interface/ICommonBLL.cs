@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ATW.CommonBase.Communicate.SerialPort
+namespace ATW.MES.BLL.Common.Interface
 {
-    internal class SerialPortCLient_Instrument
+    public interface ICommonBLL
     {
     }
 }

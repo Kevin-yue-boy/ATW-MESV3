@@ -22,7 +22,6 @@ namespace ATW.CommonBase.Method.ViewModel
         /// </summary>
         public PagingQueryRequestModel PagingQueryRequest { get; set; } = new PagingQueryRequestModel();
 
-
         #region 展示数据
 
         /// <summary>
@@ -72,6 +71,50 @@ namespace ATW.CommonBase.Method.ViewModel
                 }
             }
         }
+
+        #endregion
+
+        #region 添加 更改 删除
+
+        //#region 添加
+
+        ///// <summary>
+        ///// 添加工作类型
+        ///// </summary>
+        ///// <returns></returns>
+        //[RelayCommand]
+        //public async Task Insert()
+        //{
+        //    ResponseModel responseModel = new ResponseModel();
+        //    var sw = new Stopwatch();
+        //    sw.Start();
+        //    try
+        //    {
+        //        await BaseWorkTypeBLL.Insert(Model, responseModel);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        responseModel.Result = false;
+        //        responseModel.Msg += $"\r{ex.ToString()}";
+        //    }
+        //    finally
+        //    {
+        //        sw.Stop();
+        //        // 记录新增操作日志
+        //        ESLogger.OperateLog(responseModel.Msg, Model, EnumOperateLogType.AddData,
+        //            responseModel.Result, sw.ElapsedMilliseconds);
+
+        //        if (responseModel.Result)
+        //        {
+        //            // 添加成功后刷新分页数据
+        //            await PagingQueryAsync(PagingQueryRequest);
+        //        }
+        //        // 提示操作结果
+        //        MessageBox.Show(responseModel.Msg);
+        //    }
+        //}
+
+        //#endregion
 
         #endregion
 
