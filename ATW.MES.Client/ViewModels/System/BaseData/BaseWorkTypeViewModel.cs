@@ -16,7 +16,7 @@ using System.Windows;
 
 namespace ATW.MES.Client.ViewModels.System.BaseData
 {
-    public partial class BaseJobTypeViewModel : ViewModelBaseMethod<BaseManualTaskTypeResponse>
+    public partial class BaseJobTypeViewModel : ViewModelBaseMethod<BaseWorkTypeResponse>
     {
 
         #region Parameter
@@ -24,7 +24,7 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
         /// <summary>
         /// 工作类型业务逻辑类
         /// </summary>
-        private BaseManualTaskTypeBLL BaseManualTaskTypeBLL { get; set; } = null;
+        private BaseWorkTypeBLL BaseWorkTypeBLL { get; set; } = null;
 
         /// <summary>
         /// ES日志
@@ -41,7 +41,7 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
             RefreshPage();
 
             // 注入工作类型业务类
-            this.BaseManualTaskTypeBLL = Ioc.Default.GetRequiredService<BaseManualTaskTypeBLL>();
+            this.BaseWorkTypeBLL = Ioc.Default.GetRequiredService<BaseWorkTypeBLL>();
             // 注入ES日志
             this.ESLogger = Ioc.Default.GetRequiredService<ESLoggerBLL>();
 
@@ -61,7 +61,7 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
         /// <param name="pagingQueryRequest">分页查询条件</param>
         public override async Task PagingQueryAsync(PagingQueryRequestModel pagingQueryRequest)
         {
-            Models = await BaseManualTaskTypeBLL.PagingQueryAsync(PagingQueryRequest);
+            Models = await BaseWorkTypeBLL.PagingQueryAsync(PagingQueryRequest);
             RefreshPage();
         }
 
@@ -76,7 +76,7 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
             {
                 // 空判断，按工作类型名称模糊查询
                 PagingQueryRequest.Predicate = string.IsNullOrWhiteSpace(Search) ? null :
-                  (Func<BaseManualTaskTypeResponse, bool>)(it => it.JobTypeName.Contains(Search));
+                  (Func<BaseWorkTypeResponse, bool>)(it => it.WorkTypeName.Contains(Search));
                 PagingQueryRequest.PageIndex = 1; // 查询结果重置到第一页
                 await PagingQueryAsync(PagingQueryRequest);
             }
@@ -103,7 +103,7 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
             sw.Start();
             try
             {
-                await BaseManualTaskTypeBLL.Insert(Model, responseModel);
+                await BaseWorkTypeBLL.Insert(Model, responseModel);
             }
             catch (Exception ex)
             {
@@ -143,7 +143,7 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
             sw.Start();
             try
             {
-                await BaseManualTaskTypeBLL.Edit(Model, Model_Old, responseModel);
+                await BaseWorkTypeBLL.Edit(Model, Model_Old, responseModel);
             }
             catch (Exception ex)
             {
@@ -179,7 +179,7 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
         public async Task Delete()
         {
             // 增加删除确认提示
-            if (MessageBox.Show($"确认删除工作类型【{Model_Old?.JobTypeName}】吗？", "删除确认",
+            if (MessageBox.Show($"确认删除工作类型【{Model_Old?.WorkTypeName}】吗？", "删除确认",
                 MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
             {
                 return;
@@ -190,7 +190,7 @@ namespace ATW.MES.Client.ViewModels.System.BaseData
             sw.Start();
             try
             {
-                await BaseManualTaskTypeBLL.Delete(Model_Old, responseModel);
+                await BaseWorkTypeBLL.Delete(Model_Old, responseModel);
             }
             catch (Exception ex)
             {

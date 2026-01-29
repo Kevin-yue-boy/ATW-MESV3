@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace ATW.MES.Model.Entitys.System.BaseData
 {
-    [SugarTable("Base_ManualTaskType")]
+    [SugarTable("Base_WorkType")]
     [CacheStorage(EnableYN = true)]
-    public class BaseManualTaskTypeEntity
+    public class BaseWorkTypeEntity
     {
 
         [SugarColumn(IsPrimaryKey = true, IsIdentity = true)]
@@ -23,13 +23,13 @@ namespace ATW.MES.Model.Entitys.System.BaseData
         /// 工作类型名称
         /// </summary>
         [SugarColumn(IsNullable = false, ColumnDescription = "工作类型名称", Length = 200)]
-        public string JobTypeName { get; set; }
+        public string WorkTypeName { get; set; }
 
         /// <summary>
         /// 工作类型编码
         /// </summary>
         [SugarColumn(IsNullable = false, ColumnDescription = "工作类型编码", Length = 200)]
-        public string JobTypeCode { get; set; }
+        public string WorkTypeCode { get; set; }
 
         /// <summary>
         /// 启用

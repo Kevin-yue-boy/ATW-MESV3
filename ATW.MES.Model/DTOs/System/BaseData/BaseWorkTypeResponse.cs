@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ATW.MES.Model.DTOs.System.BaseData
 {
-    public class BaseManualTaskTypeResponse
+    public class BaseWorkTypeResponse
     {
 
         public int Id { get; set; }
@@ -19,13 +19,13 @@ namespace ATW.MES.Model.DTOs.System.BaseData
         /// 工作类型名称
         /// </summary>
         [EntityDataCheckModel(ColumnDescription = "工作类型名称", IsNullable = false)]
-        public string JobTypeName { get; set; }
+        public string WorkTypeName { get; set; }
 
         /// <summary>
         /// 工作类型编码
         /// </summary>
         [EntityDataCheckModel(ColumnDescription = "工作类型编码", IsNullable = false)]
-        public string JobTypeCode { get; set; }
+        public string WorkTypeCode { get; set; }
 
         /// <summary>
         /// 启用

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace ATW.MES.Client.Views.SystemViews.BaseData
 {
     /// <summary>
-    /// BaseManualTaskTypeView.xaml 的交互逻辑
+    /// BaseWorkTypeView.xaml 的交互逻辑
     /// </summary>
-    public partial class BaseManualTaskTypeView : UserControl
+    public partial class BaseWorkTypeView : UserControl
     {
-        public BaseManualTaskTypeView()
+        public BaseWorkTypeView()
         {
             InitializeComponent();
         }

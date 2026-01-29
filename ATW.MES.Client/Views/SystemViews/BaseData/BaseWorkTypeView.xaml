@@ -1,5 +1,5 @@
 <UserControl
-    x:Class="ATW.MES.Client.Views.SystemViews.BaseData.BaseManualTaskTypeView"
+    x:Class="ATW.MES.Client.Views.SystemViews.BaseData.BaseWorkTypeView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:UCUI="clr-namespace:ATW.MES.Client.Common.UI.UCUI"

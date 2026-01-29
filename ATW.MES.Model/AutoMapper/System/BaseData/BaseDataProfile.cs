@@ -26,8 +26,8 @@ namespace ATW.MES.Model.AutoMapper.System.BaseData
             CreateMap<BaseUnitEntity, BaseUnitResponse>();
             CreateMap<BaseUnitResponse, BaseUnitEntity>();
 
-            CreateMap<BaseManualTaskTypeEntity, BaseManualTaskTypeResponse>();
-            CreateMap<BaseManualTaskTypeResponse, BaseManualTaskTypeEntity>();
+            CreateMap<BaseWorkTypeEntity, BaseWorkTypeResponse>();
+            CreateMap<BaseWorkTypeResponse, BaseWorkTypeEntity>();
 
         }
 

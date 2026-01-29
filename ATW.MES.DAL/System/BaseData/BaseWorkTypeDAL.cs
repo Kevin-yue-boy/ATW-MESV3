@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ATW.MES.DAL.System.BaseData
 {
-    public class BaseManualTaskTypeDAL
+    public class BaseWorkTypeDAL
     {
 
         #region Parameter
@@ -25,7 +25,7 @@ namespace ATW.MES.DAL.System.BaseData
 
         #region 构造函数
 
-        public BaseManualTaskTypeDAL(ISqlSugarClient sqlSugarClient, CacheUniteSqlSugarRepository cUSR, IMapper iM)
+        public BaseWorkTypeDAL(ISqlSugarClient sqlSugarClient, CacheUniteSqlSugarRepository cUSR, IMapper iM)
         {
             IM = iM;
             DB = sqlSugarClient.AsTenant().GetConnectionScope("MainDB");
@@ -40,10 +40,10 @@ namespace ATW.MES.DAL.System.BaseData
         /// 查找工作类型信息
         /// </summary>
         /// <returns>工作类型信息列表</returns>
-        public async Task<List<BaseManualTaskTypeResponse>> Get()
+        public async Task<List<BaseWorkTypeResponse>> Get()
         {
-            var baseJobTypeEntitys = await CUSR.GetListAsync<BaseManualTaskTypeEntity>();
-            return IM.Map<List<BaseManualTaskTypeResponse>>(baseJobTypeEntitys);
+            var baseJobTypeEntitys = await CUSR.GetListAsync<BaseWorkTypeEntity>();
+            return IM.Map<List<BaseWorkTypeResponse>>(baseJobTypeEntitys);
         }
 
         #endregion
@@ -55,10 +55,10 @@ namespace ATW.MES.DAL.System.BaseData
         /// </summary>
         /// <param name="pagingQueryRequest">查询条件实体</param>
         /// <returns>分页后的工作类型信息列表</returns>
-        public async Task<List<BaseManualTaskTypeResponse>> PagingQueryAsync(PagingQueryRequestModel pagingQueryRequest)
+        public async Task<List<BaseWorkTypeResponse>> PagingQueryAsync(PagingQueryRequestModel pagingQueryRequest)
         {
-            var baseJobTypeEntitys = await CUSR.PagingQueryAsync<BaseManualTaskTypeEntity>(pagingQueryRequest);
-            return IM.Map<List<BaseManualTaskTypeResponse>>(baseJobTypeEntitys);
+            var baseJobTypeEntitys = await CUSR.PagingQueryAsync<BaseWorkTypeEntity>(pagingQueryRequest);
+            return IM.Map<List<BaseWorkTypeResponse>>(baseJobTypeEntitys);
         }
 
         #endregion
@@ -70,17 +70,17 @@ namespace ATW.MES.DAL.System.BaseData
         /// </summary>
         /// <param name="baseJobTypeResponse">工作类型信息请求实体</param>
         /// <returns>受影响的行数</returns>
-        public async Task<int> Insert(BaseManualTaskTypeResponse baseJobTypeResponse)
+        public async Task<int> Insert(BaseWorkTypeResponse baseJobTypeResponse)
         {
             try
             {
-                var baseJobTypeEntity = IM.Map<BaseManualTaskTypeEntity>(baseJobTypeResponse);
+                var baseJobTypeEntity = IM.Map<BaseWorkTypeEntity>(baseJobTypeResponse);
                 return await DB.Insertable(baseJobTypeEntity).ExecuteCommandAsync();
             }
             finally
             {
                 // 新增后清空缓存，保证后续查询数据最新
-                CUSR.RemoveList<BaseManualTaskTypeEntity>();
+                CUSR.RemoveList<BaseWorkTypeEntity>();
             }
         }
 
@@ -93,11 +93,11 @@ namespace ATW.MES.DAL.System.BaseData
         /// </summary>
         /// <param name="baseJobTypeResponse">工作类型信息请求实体</param>
         /// <returns>受影响的行数</returns>
-        public async Task<int> Edit(BaseManualTaskTypeResponse baseJobTypeResponse)
+        public async Task<int> Edit(BaseWorkTypeResponse baseJobTypeResponse)
         {
             try
             {
-                var baseJobTypeEntity = IM.Map<BaseManualTaskTypeEntity>(baseJobTypeResponse);
+                var baseJobTypeEntity = IM.Map<BaseWorkTypeEntity>(baseJobTypeResponse);
                 return await DB.Updateable(baseJobTypeEntity)
                     .Where(it => it.GUID == baseJobTypeResponse.GUID)
                     .ExecuteCommandAsync();
@@ -105,7 +105,7 @@ namespace ATW.MES.DAL.System.BaseData
             finally
             {
                 // 编辑后清空缓存，保证后续查询数据最新
-                CUSR.RemoveList<BaseManualTaskTypeEntity>();
+                CUSR.RemoveList<BaseWorkTypeEntity>();
             }
         }
 
@@ -118,19 +118,19 @@ namespace ATW.MES.DAL.System.BaseData
         /// </summary>
         /// <param name="baseJobTypeResponse">工作类型信息请求实体</param>
         /// <returns>受影响的行数</returns>
-        public async Task<int> Delete(BaseManualTaskTypeResponse baseJobTypeResponse)
+        public async Task<int> Delete(BaseWorkTypeResponse baseJobTypeResponse)
         {
             try
             {
-                var baseJobTypeEntity = IM.Map<BaseManualTaskTypeEntity>(baseJobTypeResponse);
-                return await DB.Deleteable<BaseManualTaskTypeEntity>()
+                var baseJobTypeEntity = IM.Map<BaseWorkTypeEntity>(baseJobTypeResponse);
+                return await DB.Deleteable<BaseWorkTypeEntity>()
                     .Where(it => it.GUID == baseJobTypeEntity.GUID)
                     .ExecuteCommandAsync();
             }
             finally
             {
                 // 删除后清空缓存，保证后续查询数据最新
-                CUSR.RemoveList<BaseManualTaskTypeEntity>();
+                CUSR.RemoveList<BaseWorkTypeEntity>();
             }
         }
 
